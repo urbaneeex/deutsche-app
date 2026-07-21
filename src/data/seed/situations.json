@@ -1,0 +1,205 @@
+[
+  {
+    "slug": "im-supermarkt",
+    "title": "Im Supermarkt",
+    "level": "A1",
+    "description": "Pagar en caja, una de las primeras conversaciones reales que vas a tener en Alemania.",
+    "dialogue": [
+      {
+        "speaker": "Kassiererin",
+        "text_de": "Hallo! Haben Sie eine Kundenkarte?",
+        "text_es": "¡Hola! ¿Tiene tarjeta de cliente?",
+        "options": [
+          { "text_de": "Ja, hier bitte.", "next": 1 },
+          { "text_de": "Nein, habe ich nicht.", "next": 2 }
+        ]
+      },
+      {
+        "speaker": "Kassiererin",
+        "text_de": "Super, dann bekommen Sie Punkte. Das macht 23,50 Euro.",
+        "text_es": "Genial, así consigue puntos. Son 23,50 euros.",
+        "options": [{ "text_de": "Kann ich mit Karte zahlen?", "next": 3 }]
+      },
+      {
+        "speaker": "Kassiererin",
+        "text_de": "Kein Problem. Das macht 23,50 Euro.",
+        "text_es": "Sin problema. Son 23,50 euros.",
+        "options": [{ "text_de": "Kann ich mit Karte zahlen?", "next": 3 }]
+      },
+      {
+        "speaker": "Kassiererin",
+        "text_de": "Ja, klar. Karte einstecken oder kontaktlos halten.",
+        "text_es": "Sí, claro. Inserte la tarjeta o acérquela sin contacto.",
+        "options": [{ "text_de": "Danke, einen schönen Tag noch!", "next": 4 }]
+      },
+      {
+        "speaker": "Kassiererin",
+        "text_de": "Ihnen auch, tschüss!",
+        "text_es": "Igualmente, ¡adiós!"
+      }
+    ]
+  },
+  {
+    "slug": "beim-arzt",
+    "title": "Beim Arzt",
+    "level": "A2",
+    "description": "Pedir cita, explicar síntomas y entender al médico.",
+    "dialogue": [
+      {
+        "speaker": "Arzthelferin",
+        "text_de": "Guten Tag, haben Sie einen Termin?",
+        "text_es": "Buenos días, ¿tiene cita?",
+        "options": [
+          { "text_de": "Ja, um 10 Uhr.", "next": 1 },
+          { "text_de": "Nein, ist das ein Notfall?", "next": 2 }
+        ]
+      },
+      {
+        "speaker": "Arzthelferin",
+        "text_de": "Gut, bitte nehmen Sie im Wartezimmer Platz.",
+        "text_es": "Bien, por favor tome asiento en la sala de espera.",
+        "options": [{ "text_de": "Danke.", "next": 3 }]
+      },
+      {
+        "speaker": "Arzthelferin",
+        "text_de": "Wenn es ein Notfall ist, gehen Sie bitte in die Notaufnahme.",
+        "text_es": "Si es una urgencia, vaya a urgencias, por favor.",
+        "options": [{ "text_de": "Verstanden, danke.", "next": 3 }]
+      },
+      {
+        "speaker": "Arzt",
+        "text_de": "Was führt Sie zu mir?",
+        "text_es": "¿Qué le trae por aquí?",
+        "options": [
+          { "text_de": "Ich habe seit drei Tagen Kopfschmerzen.", "next": 4 },
+          { "text_de": "Ich fühle mich seit gestern schlecht.", "next": 4 }
+        ]
+      },
+      {
+        "speaker": "Arzt",
+        "text_de": "Ich verschreibe Ihnen etwas. Gehen Sie damit zur Apotheke.",
+        "text_es": "Le prescribo algo. Vaya con esto a la farmacia."
+      }
+    ]
+  },
+  {
+    "slug": "im-buergeramt",
+    "title": "Im Bürgeramt (Anmeldung)",
+    "level": "A2",
+    "description": "El trámite que todo recién llegado a Alemania tiene que hacer en las primeras semanas.",
+    "dialogue": [
+      {
+        "speaker": "Beamtin",
+        "text_de": "Guten Tag, wie kann ich Ihnen helfen?",
+        "text_es": "Buenos días, ¿en qué puedo ayudarle?",
+        "options": [{ "text_de": "Ich möchte mich anmelden.", "next": 1 }]
+      },
+      {
+        "speaker": "Beamtin",
+        "text_de": "Haben Sie das Formular und die Wohnungsgeberbestätigung dabei?",
+        "text_es": "¿Tiene el formulario y el certificado del propietario?",
+        "options": [
+          { "text_de": "Ja, hier bitte.", "next": 2 },
+          { "text_de": "Was ist das genau?", "next": 3 }
+        ]
+      },
+      {
+        "speaker": "Beamtin",
+        "text_de": "Perfekt, einen Moment bitte.",
+        "text_es": "Perfecto, un momento por favor.",
+        "options": [{ "text_de": "Kein Problem.", "next": 4 }]
+      },
+      {
+        "speaker": "Beamtin",
+        "text_de": "Das ist eine Bestätigung von Ihrem Vermieter, dass Sie dort wohnen.",
+        "text_es": "Es un certificado de su casero confirmando que vive allí.",
+        "options": [{ "text_de": "Ah, verstehe. Ich hole es nach.", "next": 4 }]
+      },
+      {
+        "speaker": "Beamtin",
+        "text_de": "Hier ist Ihre Anmeldebestätigung. Bitte bewahren Sie sie gut auf.",
+        "text_es": "Aquí tiene su certificado de registro. Guárdelo bien."
+      }
+    ]
+  },
+  {
+    "slug": "mitbewohner-wg",
+    "title": "Mit Mitbewohnern (WG)",
+    "level": "A2",
+    "description": "Una conversación informal y cotidiana con un compañero de piso.",
+    "dialogue": [
+      {
+        "speaker": "Mitbewohner",
+        "text_de": "Hey, wie war dein Tag?",
+        "text_es": "Oye, ¿cómo estuvo tu día?",
+        "options": [
+          { "text_de": "Ganz gut, und deiner?", "next": 1 },
+          { "text_de": "Ehrlich gesagt stressig.", "next": 2 }
+        ]
+      },
+      {
+        "speaker": "Mitbewohner",
+        "text_de": "Auch gut! Übrigens, bist du heute fürs Putzen dran?",
+        "text_es": "¡También bien! Por cierto, ¿te toca limpiar hoy?",
+        "options": [{ "text_de": "Ja stimmt, mach ich gleich.", "next": 3 }]
+      },
+      {
+        "speaker": "Mitbewohner",
+        "text_de": "Oh nein, was ist passiert?",
+        "text_es": "Oh no, ¿qué pasó?",
+        "options": [{ "text_de": "Viel Arbeit, aber jetzt ist gut.", "next": 3 }]
+      },
+      {
+        "speaker": "Mitbewohner",
+        "text_de": "Alles klar. Ach, und die Miete ist morgen fällig, nicht vergessen!",
+        "text_es": "Vale. Ah, y el alquiler vence mañana, ¡no lo olvides!",
+        "options": [{ "text_de": "Stimmt, danke für die Erinnerung!", "next": 4 }]
+      },
+      {
+        "speaker": "Mitbewohner",
+        "text_de": "Kein Ding!",
+        "text_es": "¡No hay de qué!"
+      }
+    ]
+  },
+  {
+    "slug": "im-cafe",
+    "title": "Im Café",
+    "level": "A1",
+    "description": "Pedir algo de beber sin complicarte.",
+    "dialogue": [
+      {
+        "speaker": "Kellner",
+        "text_de": "Guten Tag, was möchten Sie trinken?",
+        "text_es": "Buenos días, ¿qué desea beber?",
+        "options": [
+          { "text_de": "Einen Kaffee, bitte.", "next": 1 },
+          { "text_de": "Was können Sie empfehlen?", "next": 2 }
+        ]
+      },
+      {
+        "speaker": "Kellner",
+        "text_de": "Gerne, mit Milch oder schwarz?",
+        "text_es": "Claro, ¿con leche o solo?",
+        "options": [{ "text_de": "Mit Milch, bitte.", "next": 3 }]
+      },
+      {
+        "speaker": "Kellner",
+        "text_de": "Der Cappuccino hier ist sehr beliebt.",
+        "text_es": "El capuchino de aquí es muy popular.",
+        "options": [{ "text_de": "Dann nehme ich den.", "next": 3 }]
+      },
+      {
+        "speaker": "Kellner",
+        "text_de": "Kommt sofort. Möchten Sie sonst noch etwas?",
+        "text_es": "Enseguida. ¿Desea algo más?",
+        "options": [{ "text_de": "Nein danke, das ist alles.", "next": 4 }]
+      },
+      {
+        "speaker": "Kellner",
+        "text_de": "Alles klar, kommt gleich!",
+        "text_es": "Perfecto, ¡enseguida!"
+      }
+    ]
+  }
+]

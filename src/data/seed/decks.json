@@ -1,0 +1,236 @@
+[
+  {
+    "slug": "pronombres-basicos",
+    "level": "A1",
+    "category": "vocab",
+    "topic": "Gramática",
+    "title": "Pronombres personales",
+    "description": "ich, du, er/sie/es... la base de cualquier frase.",
+    "sort_order": 1
+  },
+  {
+    "slug": "casa-objetos",
+    "level": "A1",
+    "category": "vocab",
+    "topic": "Casa y familia",
+    "title": "Casa y objetos cotidianos",
+    "description": "Sustantivos con su artículo: der, die o das.",
+    "sort_order": 2
+  },
+  {
+    "slug": "comida-bebida",
+    "level": "A1",
+    "category": "vocab",
+    "topic": "Comida y compras",
+    "title": "Comida y bebida",
+    "description": "Vocabulario para el supermercado y el café.",
+    "sort_order": 3
+  },
+  {
+    "slug": "verbos-basicos",
+    "level": "A1",
+    "category": "vocab",
+    "topic": "Gramática",
+    "title": "Verbos básicos",
+    "description": "Los verbos que más vas a usar cada día.",
+    "sort_order": 4
+  },
+  {
+    "slug": "numeros-tiempo",
+    "level": "A1",
+    "category": "vocab",
+    "topic": "Números y tiempo",
+    "title": "Números, días y meses",
+    "description": "Para citas, horarios y fechas.",
+    "sort_order": 5
+  },
+  {
+    "slug": "burocracia-aleman",
+    "level": "A2",
+    "category": "vocab",
+    "topic": "Trabajo y trámites",
+    "title": "Trámites y burocracia",
+    "description": "Anmeldung, Amt, Ausweis... lo que necesitas para vivir aquí.",
+    "sort_order": 6
+  },
+  {
+    "slug": "familia",
+    "level": "A1",
+    "category": "vocab",
+    "topic": "Casa y familia",
+    "title": "Familia",
+    "description": "Padres, hermanos, pareja... para hablar de los tuyos.",
+    "sort_order": 7
+  },
+  {
+    "slug": "ropa-colores",
+    "level": "A1",
+    "category": "vocab",
+    "topic": "Casa y familia",
+    "title": "Ropa y colores",
+    "description": "Para ir de compras y describir lo que llevas puesto.",
+    "sort_order": 8
+  },
+  {
+    "slug": "cuerpo-salud-basico",
+    "level": "A1",
+    "category": "vocab",
+    "topic": "Salud",
+    "title": "Cuerpo y salud básica",
+    "description": "Partes del cuerpo y frases para decir cómo te encuentras.",
+    "sort_order": 9
+  },
+  {
+    "slug": "ciudad-direcciones",
+    "level": "A1",
+    "category": "vocab",
+    "topic": "Ciudad y viajes",
+    "title": "Ciudad y direcciones",
+    "description": "Moverte por la ciudad y entender indicaciones.",
+    "sort_order": 10
+  },
+  {
+    "slug": "trabajo-profesiones",
+    "level": "A2",
+    "category": "vocab",
+    "topic": "Trabajo y trámites",
+    "title": "Trabajo y profesiones",
+    "description": "Tu oficio, la oficina y el día a día laboral.",
+    "sort_order": 11
+  },
+  {
+    "slug": "viajes-transporte",
+    "level": "A2",
+    "category": "vocab",
+    "topic": "Ciudad y viajes",
+    "title": "Viajes y transporte",
+    "description": "Trenes, billetes, aeropuertos y planes de viaje.",
+    "sort_order": 12
+  },
+  {
+    "slug": "tiempo-libre-hobbies",
+    "level": "A2",
+    "category": "vocab",
+    "topic": "Ocio y cultura",
+    "title": "Tiempo libre y hobbies",
+    "description": "Aficiones, deportes y planes para el fin de semana.",
+    "sort_order": 13
+  },
+  {
+    "slug": "salud-medico",
+    "level": "A2",
+    "category": "vocab",
+    "topic": "Salud",
+    "title": "Salud y el médico",
+    "description": "Explicar síntomas y entender al médico o en la farmacia.",
+    "sort_order": 14
+  },
+  {
+    "slug": "compras-tienda",
+    "level": "A2",
+    "category": "vocab",
+    "topic": "Comida y compras",
+    "title": "Compras y tiendas",
+    "description": "Tallas, precios, probadores y devoluciones.",
+    "sort_order": 15
+  },
+  {
+    "slug": "adjetivos-comunes",
+    "level": "A2",
+    "category": "vocab",
+    "topic": "Gramática",
+    "title": "Adjetivos comunes",
+    "description": "Describir personas, cosas y situaciones con matices.",
+    "sort_order": 16
+  },
+  {
+    "slug": "medios-comunicacion",
+    "level": "B1",
+    "category": "vocab",
+    "topic": "Ocio y cultura",
+    "title": "Medios de comunicación",
+    "description": "Noticias, prensa y redes sociales en alemán.",
+    "sort_order": 17
+  },
+  {
+    "slug": "medioambiente",
+    "level": "B1",
+    "category": "vocab",
+    "topic": "Sociedad y actualidad",
+    "title": "Medio ambiente",
+    "description": "Clima, reciclaje y sostenibilidad.",
+    "sort_order": 18
+  },
+  {
+    "slug": "educacion-formacion",
+    "level": "B1",
+    "category": "vocab",
+    "topic": "Sociedad y actualidad",
+    "title": "Educación y formación",
+    "description": "Universidad, cursos y el sistema educativo alemán.",
+    "sort_order": 19
+  },
+  {
+    "slug": "sentimientos-opiniones",
+    "level": "B1",
+    "category": "vocab",
+    "topic": "Sociedad y actualidad",
+    "title": "Sentimientos y opiniones",
+    "description": "Expresar cómo te sientes y dar tu punto de vista.",
+    "sort_order": 20
+  },
+  {
+    "slug": "vivienda-alquiler",
+    "level": "B1",
+    "category": "vocab",
+    "topic": "Trabajo y trámites",
+    "title": "Vivienda y alquiler",
+    "description": "Buscar piso, contratos y hablar con el Vermieter.",
+    "sort_order": 21
+  },
+  {
+    "slug": "economia-trabajo-avanzado",
+    "level": "B2",
+    "category": "vocab",
+    "topic": "Trabajo y trámites",
+    "title": "Economía y mundo laboral",
+    "description": "Vocabulario profesional para entrevistas y la oficina.",
+    "sort_order": 22
+  },
+  {
+    "slug": "sociedad-actualidad",
+    "level": "B2",
+    "category": "vocab",
+    "topic": "Sociedad y actualidad",
+    "title": "Sociedad y actualidad",
+    "description": "Debatir temas sociales y de actualidad con soltura.",
+    "sort_order": 23
+  },
+  {
+    "slug": "cultura-arte",
+    "level": "B2",
+    "category": "vocab",
+    "topic": "Ocio y cultura",
+    "title": "Cultura y arte",
+    "description": "Cine, literatura y arte para conversaciones más ricas.",
+    "sort_order": 24
+  },
+  {
+    "slug": "ciencia-tecnologia",
+    "level": "B2",
+    "category": "vocab",
+    "topic": "Sociedad y actualidad",
+    "title": "Ciencia y tecnología",
+    "description": "Vocabulario técnico y de innovación.",
+    "sort_order": 25
+  },
+  {
+    "slug": "conectores-argumentacion",
+    "level": "B2",
+    "category": "vocab",
+    "topic": "Gramática",
+    "title": "Conectores para argumentar",
+    "description": "Palabras clave para escribir y hablar con más matiz.",
+    "sort_order": 26
+  }
+]

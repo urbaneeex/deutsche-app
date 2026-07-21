@@ -1,0 +1,1576 @@
+[
+  {
+    "slug": "pronombres-personales-posesivos",
+    "level": "A1",
+    "topic": "Pronombres",
+    "title": "Pronombres personales y posesivos",
+    "sort_order": 1,
+    "content": {
+      "sections": [
+        {
+          "heading": "Pronombres personales",
+          "body": "ich (yo), du (tú), er/sie/es (él/ella/ello), wir (nosotros), ihr (vosotros), sie (ellos/ellas), Sie (usted/ustedes, siempre con mayúscula). 'es' se usa también para cosas sin género natural claro (das Kind -> es) y en expresiones como 'es regnet' (llueve)."
+        },
+        {
+          "heading": "Pronombres posesivos",
+          "body": "Se forman a partir del pronombre personal: ich->mein, du->dein, er->sein, sie->ihr, es->sein, wir->unser, ihr->euer, sie->ihr, Sie->Ihr. Concuerdan en género y caso con el sustantivo al que acompañan, igual que un artículo: 'mein Handy' (das Handy, neutro), 'meine Tasche' (die Tasche, femenino), 'mein Bruder' (der Bruder, masculino)."
+        },
+        {
+          "heading": "Truco práctico",
+          "body": "Si dudas entre 'mein' o 'meine', pregúntate el artículo del sustantivo: der/das -> mein; die -> meine. Esto se aplica igual a dein, sein, ihr, unser, euer."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Completa: ___ (yo) lerne Deutsch.",
+          "choices": ["Ich", "Du", "Er", "Wir"],
+          "answer": "Ich",
+          "explanation": "'Yo' se traduce como 'ich', siempre en minúscula salvo al inicio de frase."
+        },
+        {
+          "prompt": "Das ist ___ Handy (mi móvil, das Handy).",
+          "choices": ["mein", "meine", "meiner", "meins"],
+          "answer": "mein",
+          "explanation": "das Handy es neutro, por eso 'mein' sin -e."
+        },
+        {
+          "prompt": "Das ist ___ Tasche (mi bolsa, die Tasche).",
+          "choices": ["mein", "meine", "meinen", "meinem"],
+          "answer": "meine",
+          "explanation": "die Tasche es femenino, por eso 'meine' con -e."
+        },
+        {
+          "prompt": "Forma formal de 'tú' que se escribe siempre con mayúscula:",
+          "choices": ["sie", "Sie", "ihr", "du"],
+          "answer": "Sie",
+          "explanation": "'Sie' (usted/ustedes) siempre lleva mayúscula, a diferencia de 'sie' (ella/ellos)."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "presente-verbos-regulares",
+    "level": "A1",
+    "topic": "Verbos",
+    "title": "Presente de los verbos regulares",
+    "sort_order": 2,
+    "content": {
+      "sections": [
+        {
+          "heading": "Terminaciones",
+          "body": "Se quita -en del infinitivo y se añade: ich -e, du -st, er/sie/es -t, wir -en, ihr -t, sie/Sie -en. Ejemplo con 'wohnen' (vivir): ich wohne, du wohnst, er wohnt, wir wohnen, ihr wohnt, sie wohnen."
+        },
+        {
+          "heading": "Verbos que terminan en -t/-d",
+          "body": "Si el verbo termina en -t o -d (arbeiten, finden), se añade una 'e' extra antes de -st y -t para poder pronunciarlo: du arbeitest, er arbeitet."
+        },
+        {
+          "heading": "Verbos terminados en -s, -ß, -z",
+          "body": "Si la raíz ya termina en -s, -ß, -z o -x (heißen), la 2ª persona 'du' no añade otra -s: du heißt (no 'heißst')."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "du wohn___ (vivir)",
+          "choices": ["e", "st", "t", "en"],
+          "answer": "st",
+          "explanation": "2ª persona singular: -st -> du wohnst."
+        },
+        {
+          "prompt": "er arbeit___ (trabajar)",
+          "choices": ["t", "et", "st", "est"],
+          "answer": "et",
+          "explanation": "arbeiten termina en -t, se añade una -e- de apoyo: er arbeitet."
+        },
+        {
+          "prompt": "Wie ___ du? (heißen = llamarse)",
+          "choices": ["heißt", "heißst", "heißest", "heiß"],
+          "answer": "heißt",
+          "explanation": "La raíz ya termina en -ß, así que 'du' no añade otra -s: du heißt."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "verbos-irregulares-comunes",
+    "level": "A1",
+    "topic": "Verbos",
+    "title": "sein, haben y verbos irregulares frecuentes",
+    "sort_order": 3,
+    "content": {
+      "sections": [
+        {
+          "heading": "sein (ser/estar)",
+          "body": "ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind. Es el verbo más irregular e imprescindible: se usa para describir estados ('ich bin müde') y también en la mayoría de tiempos compuestos con verbos de movimiento."
+        },
+        {
+          "heading": "haben (tener)",
+          "body": "ich habe, du hast, er/sie/es hat, wir haben, ihr habt, sie/Sie haben."
+        },
+        {
+          "heading": "Verbos con cambio vocálico e -> i / ie",
+          "body": "Algunos verbos cambian la vocal solo en 'du' y 'er/sie/es': sprechen -> du sprichst, er spricht; essen -> du isst, er isst; sehen -> du siehst, er sieht; nehmen -> du nimmst, er nimmt (también cambia la consonante)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Wir ___ aus Spanien (sein).",
+          "choices": ["sind", "seid", "bin", "ist"],
+          "answer": "sind",
+          "explanation": "1ª persona plural de sein: wir sind."
+        },
+        {
+          "prompt": "Er ___ Hunger (haben).",
+          "choices": ["habe", "hast", "hat", "haben"],
+          "answer": "hat",
+          "explanation": "3ª persona singular de haben: er/sie/es hat."
+        },
+        {
+          "prompt": "Du ___ sehr gut Deutsch (sprechen).",
+          "choices": ["sprechst", "sprichst", "spreche", "sprecht"],
+          "answer": "sprichst",
+          "explanation": "sprechen cambia e->i en 'du' y 'er/sie/es': du sprichst."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "nominativ-akkusativ",
+    "level": "A1",
+    "topic": "Casos",
+    "title": "Los casos: Nominativ y Akkusativ",
+    "sort_order": 4,
+    "content": {
+      "sections": [
+        {
+          "heading": "Nominativ (sujeto)",
+          "body": "Es la forma 'básica' del artículo: der Mann, die Frau, das Kind. Se usa para el sujeto de la frase: 'Der Mann trinkt Kaffee'."
+        },
+        {
+          "heading": "Akkusativ (objeto directo)",
+          "body": "Solo cambia el artículo masculino: der -> den. Femenino, neutro y plural no cambian: die -> die, das -> das. Ejemplo: 'Ich sehe den Mann / die Frau / das Kind'. El artículo indefinido masculino también cambia: ein -> einen ('Ich sehe einen Mann')."
+        },
+        {
+          "heading": "Por qué importa",
+          "body": "El Akkusativ marca quién recibe la acción del verbo. Es el primer caso que hay que dominar porque aparece constantemente: 'Ich möchte einen Kaffee', 'Ich brauche meinen Schlüssel'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich sehe ___ Mann (der Mann, Akkusativ).",
+          "choices": ["der", "den", "dem", "des"],
+          "answer": "den",
+          "explanation": "Masculino en Akkusativ: der -> den."
+        },
+        {
+          "prompt": "Ich möchte ___ Kaffee (ein, Akkusativ).",
+          "choices": ["ein", "einen", "eine", "einem"],
+          "answer": "einen",
+          "explanation": "Artículo indefinido masculino en Akkusativ: ein -> einen."
+        },
+        {
+          "prompt": "Ich brauche ___ Tasche (die Tasche, Akkusativ).",
+          "choices": ["der", "den", "die", "dem"],
+          "answer": "die",
+          "explanation": "El femenino no cambia entre Nominativ y Akkusativ: die -> die."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "dativ",
+    "level": "A2",
+    "topic": "Casos",
+    "title": "El caso Dativ",
+    "sort_order": 5,
+    "content": {
+      "sections": [
+        {
+          "heading": "Formas del artículo en Dativ",
+          "body": "der -> dem, die -> der, das -> dem, plural (die) -> den. Indefinido: ein -> einem, eine -> einer."
+        },
+        {
+          "heading": "Cuándo se usa",
+          "body": "Marca el objeto indirecto (a quién) y va después de preposiciones muy comunes: mit, bei, nach, von, zu, aus, seit. Ejemplo: 'Ich fahre mit dem Bus', 'Ich wohne bei meiner Freundin'."
+        },
+        {
+          "heading": "Verbos que siempre piden Dativ",
+          "body": "helfen, gefallen, gehören, danken: 'Ich helfe dir', 'Das gefällt mir' (esto me gusta)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich fahre mit ___ Bus (der Bus, Dativ).",
+          "choices": ["der", "den", "dem", "des"],
+          "answer": "dem",
+          "explanation": "Masculino en Dativ: der -> dem, y 'mit' siempre pide Dativ."
+        },
+        {
+          "prompt": "Das gefällt ___ (yo, Dativ = mir).",
+          "choices": ["ich", "mich", "mir", "mein"],
+          "answer": "mir",
+          "explanation": "'gefallen' pide Dativ; el pronombre 'ich' en Dativ es 'mir'."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "du-vs-sie",
+    "level": "A1",
+    "topic": "Registro",
+    "title": "Du vs Sie: cuándo tutear",
+    "sort_order": 6,
+    "content": {
+      "sections": [
+        {
+          "heading": "Sie (formal)",
+          "body": "Se usa con desconocidos adultos, en el Amt, con médicos, jefes, o cualquier situación oficial. Va siempre con mayúscula y con el verbo en 3ª persona plural: 'Wie heißen Sie?', 'Können Sie mir helfen?'."
+        },
+        {
+          "heading": "du (informal)",
+          "body": "Se usa con amigos, familia, compañeros de piso, gente de tu edad en contextos informales, y casi siempre en redes sociales/WhatsApp salvo que sea una empresa. Cada vez más común incluso en el trabajo en startups/tech."
+        },
+        {
+          "heading": "Cómo decidir en la calle",
+          "body": "Si tienes duda, empieza con 'Sie' con adultos que no conoces; muchos alemanes te ofrecerán cambiar a 'du' diciendo 'Wir können uns duzen' o simplemente empezando a tutearte. Entre jóvenes y en ambientes informales (bares, fiestas, apps) el 'du' es el estándar."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Le preguntas la hora a un policía en la calle:",
+          "choices": ["Wie viel Uhr hast du?", "Wie viel Uhr haben Sie?", "Was Zeit du?", "Uhr Sie?"],
+          "answer": "Wie viel Uhr haben Sie?",
+          "explanation": "Con un desconocido en un contexto oficial se usa 'Sie'."
+        },
+        {
+          "prompt": "Le escribes a tu compañero de piso por WhatsApp:",
+          "choices": ["Können Sie einkaufen gehen?", "Kannst du einkaufen gehen?", "Kann Sie einkaufen?", "Du können einkaufen?"],
+          "answer": "Kannst du einkaufen gehen?",
+          "explanation": "Con un amigo/compañero de piso se usa 'du'."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "excepciones-y-trampas",
+    "level": "A2",
+    "topic": "Excepciones",
+    "title": "Excepciones y trampas comunes al escribir",
+    "sort_order": 7,
+    "content": {
+      "sections": [
+        {
+          "heading": "ß vs ss",
+          "body": "'ß' (Eszett) se usa tras vocal larga o diptongo: die Straße, groß. 'ss' se usa tras vocal corta: dass, essen. En Suiza no se usa ß, se escribe siempre 'ss'. En teclado sin ß puedes escribir 'ss' como alternativa aceptada informalmente."
+        },
+        {
+          "heading": "Sustantivos siempre en mayúscula",
+          "body": "A diferencia del español, TODOS los sustantivos alemanes se escriben con mayúscula inicial, estén donde estén en la frase: 'Ich brauche einen Kaffee' (no 'kaffee'). Es el error más común de principiantes."
+        },
+        {
+          "heading": "Umlaut y teclado sin ä, ö, ü",
+          "body": "Si escribes desde un teclado sin diéresis alemanas, la alternativa aceptada informalmente (y en WhatsApp) es escribir ae, oe, ue: 'schön' -> 'schoen', 'für' -> 'fuer', 'Mädchen' -> 'Maedchen'. No es 100% ortográfico pero se entiende y se usa mucho al escribir rápido."
+        },
+        {
+          "heading": "Verbos separables (trennbare Verben)",
+          "body": "Verbos como 'aufstehen' (levantarse), 'einkaufen' (comprar), 'anrufen' (llamar) separan el prefijo al final de la frase en presente: 'Ich stehe um 7 Uhr auf', 'Ich rufe dich an'. El prefijo (auf, ein, an...) se va al final."
+        },
+        {
+          "heading": "Plurales irregulares",
+          "body": "No hay una regla única: der Mann -> die Männer, das Kind -> die Kinder, die Frau -> die Frauen, das Auto -> die Autos. Hay que aprender el plural junto con cada palabra nueva, igual que el artículo."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Escribe correctamente: 'la calle' (die Strasse o die Straße)",
+          "choices": ["die Straße", "die Strasse (solo en Alemania)", "ambas son igualmente correctas en Alemania", "die Straß"],
+          "answer": "die Straße",
+          "explanation": "En Alemania y Austria se usa 'ß' tras vocal larga; 'ss' sin ß es la norma solo en Suiza."
+        },
+        {
+          "prompt": "¿Cómo se escribe 'für' si tu teclado no tiene ü?",
+          "choices": ["fur", "fuer", "fyr", "fü"],
+          "answer": "fuer",
+          "explanation": "La convención informal es sustituir ü por ue (también ä->ae, ö->oe)."
+        },
+        {
+          "prompt": "Ich ___ um 7 Uhr ___ (aufstehen = levantarse).",
+          "choices": ["aufstehe / -", "stehe / auf", "stehe auf / -", "aufstehe auf / -"],
+          "answer": "stehe / auf",
+          "explanation": "Verbo separable: 'stehe' se conjuga y 'auf' se va al final: 'Ich stehe um 7 Uhr auf'."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "articulos-genero",
+    "level": "A1",
+    "topic": "Artículos",
+    "title": "El género: der, die, das",
+    "sort_order": 8,
+    "content": {
+      "sections": [
+        {
+          "heading": "Los tres géneros",
+          "body": "Cada sustantivo alemán tiene un género gramatical: masculino (der Mann), femenino (die Frau) o neutro (das Kind). No siempre coincide con el sentido natural: das Mädchen (la niña) es neutro. Hay que aprender el artículo junto con la palabra, como si fuera parte de ella."
+        },
+        {
+          "heading": "Pistas útiles (no son reglas absolutas)",
+          "body": "Suelen ser masculinos: días, meses, estaciones (der Montag, der Winter). Suelen ser femeninos: palabras terminadas en -e, -heit, -keit, -ung (die Wohnung, die Freiheit). Suelen ser neutros: diminutivos en -chen/-lein (das Mädchen) e infinitivos usados como sustantivo (das Lernen)."
+        },
+        {
+          "heading": "El artículo indefinido",
+          "body": "'un/una' es 'ein' para masculino y neutro, y 'eine' para femenino: ein Mann, ein Kind, eine Frau. En plural no existe artículo indefinido, se omite: Kinder (niños)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "___ Wohnung ist neu (die Wohnung).",
+          "choices": ["Der", "Die", "Das", "Den"],
+          "answer": "Die",
+          "explanation": "Las palabras terminadas en -ung suelen ser femeninas: die Wohnung."
+        },
+        {
+          "prompt": "Das ist ___ Mädchen (das Mädchen, indefinido).",
+          "choices": ["ein", "eine", "einen", "einem"],
+          "answer": "ein",
+          "explanation": "das Mädchen es neutro, por eso el indefinido es 'ein', no 'eine' (aunque se refiera a una niña)."
+        },
+        {
+          "prompt": "¿Qué género tiene normalmente un día de la semana como 'Montag'?",
+          "choices": ["masculino", "femenino", "neutro", "no tiene género"],
+          "answer": "masculino",
+          "explanation": "Los días, meses y estaciones son casi siempre masculinos: der Montag, der Januar, der Sommer."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "modalverben-basicos",
+    "level": "A1",
+    "topic": "Verbos",
+    "title": "Verbos modales: können, müssen, wollen, dürfen",
+    "sort_order": 9,
+    "content": {
+      "sections": [
+        {
+          "heading": "Qué son y cómo se usan",
+          "body": "Los verbos modales acompañan a otro verbo en infinitivo, que se manda al final de la frase: 'Ich kann gut Deutsch sprechen'. Los cuatro básicos: können (poder/saber), müssen (tener que), wollen (querer), dürfen (tener permiso, poder)."
+        },
+        {
+          "heading": "Conjugación irregular",
+          "body": "können: ich kann, du kannst, er kann, wir können. müssen: ich muss, du musst, er muss, wir müssen. wollen: ich will, du willst, er will, wir wollen. dürfen: ich darf, du darfst, er darf, wir dürfen. En singular (ich/er) pierden el Umlaut y cambian de forma."
+        },
+        {
+          "heading": "möchten vs wollen",
+          "body": "'möchten' (querer, de forma educada) es en realidad el Konjunktiv II de 'mögen', y se usa mucho más que 'wollen' para pedir cosas: 'Ich möchte einen Kaffee' suena más cortés que 'Ich will einen Kaffee'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Du ___ hier nicht rauchen (dürfen, prohibido).",
+          "choices": ["darfst", "darf", "dürft", "dürfen"],
+          "answer": "darfst",
+          "explanation": "2ª persona singular de dürfen: du darfst."
+        },
+        {
+          "prompt": "Ich ___ morgen früh aufstehen (müssen).",
+          "choices": ["muss", "musst", "müssen", "müsst"],
+          "answer": "muss",
+          "explanation": "1ª persona singular de müssen: ich muss."
+        },
+        {
+          "prompt": "Wir ___ sehr gut kochen (können).",
+          "choices": ["kann", "kannst", "können", "könnt"],
+          "answer": "können",
+          "explanation": "1ª persona plural de können: wir können."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "negacion-nicht-kein",
+    "level": "A1",
+    "topic": "Negación",
+    "title": "La negación: nicht vs kein",
+    "sort_order": 10,
+    "content": {
+      "sections": [
+        {
+          "heading": "kein/keine: niega sustantivos",
+          "body": "Se usa cuando el sustantivo llevaría 'ein/eine' o ningún artículo: 'Ich habe einen Hund' -> 'Ich habe keinen Hund'. Se declina igual que 'ein' pero también existe en plural: keine Kinder (ningún niño/ningunos niños)."
+        },
+        {
+          "heading": "nicht: niega todo lo demás",
+          "body": "Se usa para negar verbos, adjetivos, adverbios o sustantivos que ya llevan artículo definido: 'Ich verstehe das nicht', 'Das ist nicht gut', 'Ich kenne den Mann nicht'. Suele ir al final de la frase o justo antes de lo que niega."
+        },
+        {
+          "heading": "Truco rápido",
+          "body": "Pregúntate: ¿estoy negando un sustantivo sin artículo definido ('un/una' o nada)? Usa 'kein'. ¿Estoy negando cualquier otra cosa? Usa 'nicht'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich habe ___ Zeit (die Zeit, sin artículo en la frase afirmativa).",
+          "choices": ["nicht", "keine", "kein", "keinen"],
+          "answer": "keine",
+          "explanation": "die Zeit es femenino y no lleva artículo definido, se niega con 'keine'."
+        },
+        {
+          "prompt": "Das Buch ist ___ interessant.",
+          "choices": ["kein", "keine", "nicht", "keinen"],
+          "answer": "nicht",
+          "explanation": "'interessant' es un adjetivo, no un sustantivo: se niega con 'nicht'."
+        },
+        {
+          "prompt": "Ich verstehe den Satz ___.",
+          "choices": ["kein", "keinen", "nicht", "keine"],
+          "answer": "nicht",
+          "explanation": "'den Satz' ya lleva artículo definido, así que el verbo se niega con 'nicht' al final."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "w-fragen",
+    "level": "A1",
+    "topic": "Preguntas",
+    "title": "Preguntas con W-Fragen (wer, was, wo...)",
+    "sort_order": 11,
+    "content": {
+      "sections": [
+        {
+          "heading": "Las palabras interrogativas básicas",
+          "body": "wer (quién), was (qué), wo (dónde), wohin (a dónde), woher (de dónde), wann (cuándo), warum (por qué), wie (cómo), wie viel(e) (cuánto/s). El verbo va siempre en 2ª posición: 'Wo wohnst du?'."
+        },
+        {
+          "heading": "Preguntas sin W-Wort (sí/no)",
+          "body": "Cuando no hay palabra interrogativa, el verbo se coloca al principio: 'Wohnst du in Berlin?' (¿Vives en Berlín?), y se responde con Ja/Nein."
+        },
+        {
+          "heading": "wohin vs wo vs woher",
+          "body": "'wo' pregunta ubicación fija ('Wo bist du?' - ¿Dónde estás?), 'wohin' pregunta destino ('Wohin gehst du?' - ¿A dónde vas?) y 'woher' pregunta origen ('Woher kommst du?' - ¿De dónde vienes?)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "___ wohnst du? (pregunta por el lugar)",
+          "choices": ["Wer", "Was", "Wo", "Wann"],
+          "answer": "Wo",
+          "explanation": "'Wo' pregunta por la ubicación: Wo wohnst du?"
+        },
+        {
+          "prompt": "___ kommst du? (pregunta por el origen)",
+          "choices": ["Wo", "Wohin", "Woher", "Warum"],
+          "answer": "Woher",
+          "explanation": "'Woher' pregunta por el origen: Woher kommst du? (Ich komme aus Spanien)."
+        },
+        {
+          "prompt": "¿Cómo se pregunta 'sí o no' sin W-Wort? 'Trabajas en Berlín'",
+          "choices": ["Du arbeitest in Berlin?", "Arbeitest du in Berlin?", "Warum arbeitest du?", "Wo du arbeitest?"],
+          "answer": "Arbeitest du in Berlin?",
+          "explanation": "En preguntas de sí/no, el verbo va al principio de la frase."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "plural-sustantivos",
+    "level": "A1",
+    "topic": "Sustantivos",
+    "title": "El plural de los sustantivos",
+    "sort_order": 12,
+    "content": {
+      "sections": [
+        {
+          "heading": "No hay una regla única",
+          "body": "El plural alemán tiene varias terminaciones posibles: -e (der Tisch -> die Tische), -er con Umlaut (das Buch -> die Bücher), -n/-en (die Frau -> die Frauen), -s (das Auto -> die Autos, sobre todo palabras extranjeras), o sin cambio (der Lehrer -> die Lehrer)."
+        },
+        {
+          "heading": "El artículo en plural",
+          "body": "Todos los sustantivos en plural usan 'die' como artículo definido, sin importar su género en singular: der Mann -> die Männer, das Kind -> die Kinder, die Frau -> die Frauen."
+        },
+        {
+          "heading": "Cómo aprenderlo",
+          "body": "Se aprende el plural junto con la palabra y su artículo, igual que el género: 'das Buch, die Bücher' se memorizan como una unidad, no se deduce solo con reglas."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "das Kind -> plural",
+          "choices": ["die Kinds", "die Kinde", "die Kinder", "die Kinden"],
+          "answer": "die Kinder",
+          "explanation": "das Kind tiene un plural irregular: die Kinder."
+        },
+        {
+          "prompt": "¿Qué artículo usan TODOS los sustantivos en plural?",
+          "choices": ["der", "die", "das", "depende del género original"],
+          "answer": "die",
+          "explanation": "En plural el artículo definido es siempre 'die', sin importar el género en singular."
+        },
+        {
+          "prompt": "das Auto -> plural",
+          "choices": ["die Autos", "die Autoen", "die Autör", "die Auten"],
+          "answer": "die Autos",
+          "explanation": "Muchas palabras de origen extranjero forman el plural con -s: die Autos."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "imperativ-basico",
+    "level": "A1",
+    "topic": "Verbos",
+    "title": "El imperativo: órdenes y peticiones",
+    "sort_order": 13,
+    "content": {
+      "sections": [
+        {
+          "heading": "Imperativo con du",
+          "body": "Se usa la raíz del verbo, sin pronombre, casi siempre sin -e final: 'Komm!' (¡Ven!), 'Warte!' (¡Espera!). Verbos con cambio e->i lo mantienen: 'Nimm!' (de nehmen), 'Sprich!' (de sprechen)."
+        },
+        {
+          "heading": "Imperativo con ihr y Sie",
+          "body": "Con 'ihr' se usa la forma normal del presente sin pronombre: 'Kommt!' (¡Venid!). Con 'Sie' se invierte el orden verbo+pronombre: 'Kommen Sie!' (¡Venga usted!)."
+        },
+        {
+          "heading": "Suavizar una orden",
+          "body": "Añadir 'bitte' (por favor) o 'mal' (una partícula suavizadora) hace que la orden suene más amable: 'Warte mal!', 'Setzen Sie sich, bitte'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Imperativo con 'du' de 'kommen':",
+          "choices": ["Komme!", "Kommst!", "Komm!", "Kommen!"],
+          "answer": "Komm!",
+          "explanation": "El imperativo con 'du' usa la raíz sin pronombre y normalmente sin -e: Komm!"
+        },
+        {
+          "prompt": "Imperativo formal de 'helfen' (usted):",
+          "choices": ["Helfen Sie!", "Sie helfen!", "Hilf!", "Helft!"],
+          "answer": "Helfen Sie!",
+          "explanation": "Con 'Sie' el verbo va antes del pronombre: Helfen Sie mir, bitte!"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "perfekt-intro",
+    "level": "A1",
+    "topic": "Tiempos verbales",
+    "title": "Introducción al Perfekt (pasado hablado)",
+    "sort_order": 14,
+    "content": {
+      "sections": [
+        {
+          "heading": "Cómo se forma",
+          "body": "El Perfekt es el tiempo pasado más usado al hablar. Se forma con haben o sein (conjugado) + Partizip II al final: 'Ich habe Deutsch gelernt', 'Ich bin nach Berlin gefahren'."
+        },
+        {
+          "heading": "haben o sein: ¿cuál elegir?",
+          "body": "La mayoría de verbos usan 'haben'. Se usa 'sein' con verbos de movimiento (gehen, fahren, kommen) y de cambio de estado (werden, aufwachen), y con sein/bleiben mismos: 'Ich bin gegangen', 'Ich bin geblieben'."
+        },
+        {
+          "heading": "El Partizip II regular",
+          "body": "Verbos regulares: ge- + raíz + -t: lernen -> gelernt, spielen -> gespielt. Los irregulares (starke Verben) cambian la raíz y usan -en: gehen -> gegangen, sehen -> gesehen (hay que aprenderlos de memoria)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich ___ Deutsch gelernt (haben o sein).",
+          "choices": ["bin", "habe", "hat", "ist"],
+          "answer": "habe",
+          "explanation": "'lernen' no es verbo de movimiento, usa 'haben': ich habe gelernt."
+        },
+        {
+          "prompt": "Ich ___ nach Hause gegangen (haben o sein).",
+          "choices": ["habe", "hat", "bin", "hast"],
+          "answer": "bin",
+          "explanation": "'gehen' es verbo de movimiento, usa 'sein': ich bin gegangen."
+        },
+        {
+          "prompt": "Partizip II de 'spielen' (regular):",
+          "choices": ["gespielt", "gespielen", "spielt", "gespielte"],
+          "answer": "gespielt",
+          "explanation": "Verbo regular: ge- + raíz + -t = gespielt."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "perfekt-completo",
+    "level": "A2",
+    "topic": "Tiempos verbales",
+    "title": "El Perfekt completo: Partizip II regular e irregular",
+    "sort_order": 15,
+    "content": {
+      "sections": [
+        {
+          "heading": "Verbos irregulares frecuentes",
+          "body": "sehen -> gesehen, essen -> gegessen, trinken -> getrunken, nehmen -> genommen, sprechen -> gesprochen, schreiben -> geschrieben, lesen -> gelesen, fahren -> gefahren, kommen -> gekommen, sein -> gewesen, werden -> geworden."
+        },
+        {
+          "heading": "Verbos con prefijo separable",
+          "body": "El 'ge-' se coloca entre el prefijo y la raíz: aufstehen -> aufgestanden, einkaufen -> eingekauft, anrufen -> angerufen."
+        },
+        {
+          "heading": "Verbos con prefijo inseparable o terminados en -ieren",
+          "body": "No añaden 'ge-': verstehen -> verstanden, bekommen -> bekommen, besuchen -> besucht. Los verbos en -ieren tampoco: studieren -> studiert, telefonieren -> telefoniert."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich habe einen Kaffee ___ (trinken).",
+          "choices": ["getrinkt", "getrunken", "trinkt", "getrinken"],
+          "answer": "getrunken",
+          "explanation": "trinken es irregular: Partizip II = getrunken."
+        },
+        {
+          "prompt": "Ich habe meine Oma ___ (besuchen, verbo inseparable).",
+          "choices": ["gebesucht", "besucht", "besuchen", "besuchte"],
+          "answer": "besucht",
+          "explanation": "Los verbos con prefijo inseparable (be-, ver-, ent-...) no añaden 'ge-': besucht."
+        },
+        {
+          "prompt": "Ich habe heute ___ (einkaufen, prefijo separable).",
+          "choices": ["geeinkauft", "eingekauft", "einkauft", "gekauft ein"],
+          "answer": "eingekauft",
+          "explanation": "El 'ge-' va entre el prefijo y la raíz: ein-ge-kauft = eingekauft."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "praeteritum-sein-haben-modal",
+    "level": "A2",
+    "topic": "Tiempos verbales",
+    "title": "Präteritum de sein, haben y verbos modales",
+    "sort_order": 16,
+    "content": {
+      "sections": [
+        {
+          "heading": "sein y haben en Präteritum",
+          "body": "Aunque el Perfekt es lo normal para hablar, sein y haben se usan casi siempre en Präteritum incluso al hablar: ich war, du warst, er war, wir waren (sein); ich hatte, du hattest, er hatte, wir hatten (haben)."
+        },
+        {
+          "heading": "Verbos modales en Präteritum",
+          "body": "También los modales se usan más en Präteritum que en Perfekt al hablar: können -> ich konnte, müssen -> ich musste, wollen -> ich wollte, dürfen -> ich durfte, mögen -> ich mochte."
+        },
+        {
+          "heading": "Ejemplo práctico",
+          "body": "'Ich war letztes Jahr in Deutschland' (Estuve el año pasado en Alemania), 'Ich musste früh aufstehen' (Tuve que levantarme temprano) son frases del día a día en Präteritum."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich ___ gestern krank (sein, Präteritum).",
+          "choices": ["bin", "war", "wart", "waren"],
+          "answer": "war",
+          "explanation": "1ª persona singular de sein en Präteritum: ich war."
+        },
+        {
+          "prompt": "Wir ___ keine Zeit (haben, Präteritum).",
+          "choices": ["haben", "hatten", "hatte", "habt"],
+          "answer": "hatten",
+          "explanation": "1ª persona plural de haben en Präteritum: wir hatten."
+        },
+        {
+          "prompt": "Ich ___ nicht kommen (können, Präteritum).",
+          "choices": ["kann", "konnte", "könnte", "kannte"],
+          "answer": "konnte",
+          "explanation": "Präteritum de können: ich konnte."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "adjektivdeklination-intro",
+    "level": "A2",
+    "topic": "Adjetivos",
+    "title": "Declinación básica del adjetivo",
+    "sort_order": 17,
+    "content": {
+      "sections": [
+        {
+          "heading": "Adjetivo después de artículo definido",
+          "body": "Con der/die/das, el adjetivo casi siempre termina en -e en Nominativ y en -en en los demás casos: 'der große Mann', 'die große Frau', 'das große Kind'; 'ich sehe den großen Mann'."
+        },
+        {
+          "heading": "Adjetivo después de artículo indefinido",
+          "body": "Con ein/eine, el adjetivo lleva la terminación que 'falta' al artículo: 'ein großer Mann' (masculino, como der), 'eine große Frau', 'ein großes Kind' (neutro, como das)."
+        },
+        {
+          "heading": "Adjetivo sin artículo (predicativo)",
+          "body": "Cuando el adjetivo va después de 'sein' no se declina: 'Der Mann ist groß', 'Die Kinder sind klein'. Solo se declina cuando va justo antes del sustantivo."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "der groß___ Mann (Nominativ).",
+          "choices": ["-e", "-er", "-en", "-es"],
+          "answer": "-e",
+          "explanation": "Después de artículo definido en Nominativ, el adjetivo termina en -e: der große Mann."
+        },
+        {
+          "prompt": "ein groß___ Mann (indefinido, masculino, Nominativ).",
+          "choices": ["-e", "-er", "-en", "-es"],
+          "answer": "-er",
+          "explanation": "Con 'ein' el adjetivo lleva la terminación fuerte que falta: ein großer Mann."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "komparativ-superlativ",
+    "level": "A2",
+    "topic": "Adjetivos",
+    "title": "Comparativo y superlativo",
+    "sort_order": 18,
+    "content": {
+      "sections": [
+        {
+          "heading": "Comparativo: -er",
+          "body": "Se añade -er al adjetivo: klein -> kleiner, schnell -> schneller. Muchos adjetivos cortos añaden Umlaut: groß -> größer, alt -> älter, jung -> jünger. Para comparar se usa 'als': 'Berlin ist größer als München'."
+        },
+        {
+          "heading": "Superlativo: am -sten",
+          "body": "Se usa 'am' + adjetivo + '-sten': 'Berlin ist am größten' (Berlín es el más grande). Como atributo antes de sustantivo: 'der größte Mann'."
+        },
+        {
+          "heading": "Formas irregulares clave",
+          "body": "gut -> besser -> am besten; viel -> mehr -> am meisten; gern -> lieber -> am liebsten. Estas hay que aprenderlas de memoria."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Berlin ist ___ als München (groß, comparativo).",
+          "choices": ["groß", "größer", "am größten", "großer"],
+          "answer": "größer",
+          "explanation": "Comparativo con Umlaut: groß -> größer."
+        },
+        {
+          "prompt": "Comparativo de 'gut':",
+          "choices": ["guter", "gutter", "besser", "am besten"],
+          "answer": "besser",
+          "explanation": "gut tiene un comparativo irregular: besser."
+        },
+        {
+          "prompt": "Ich trinke ___ Kaffee als Tee (gern, superlativo/comparativo de preferencia).",
+          "choices": ["gerner", "lieber", "am liebsten", "gut"],
+          "answer": "lieber",
+          "explanation": "Comparativo irregular de gern: lieber (prefiero)."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "wechselpraepositionen",
+    "level": "A2",
+    "topic": "Preposiciones",
+    "title": "Preposiciones de doble uso (Wechselpräpositionen)",
+    "sort_order": 19,
+    "content": {
+      "sections": [
+        {
+          "heading": "Las nueve Wechselpräpositionen",
+          "body": "an, auf, hinter, in, neben, über, unter, vor, zwischen pueden ir con Akkusativ o Dativ según la pregunta: ¿wohin? (movimiento hacia -> Akkusativ) o ¿wo? (ubicación fija -> Dativ)."
+        },
+        {
+          "heading": "Ejemplo con movimiento (Akkusativ)",
+          "body": "'Ich lege das Buch auf den Tisch' (pongo el libro sobre la mesa: hay movimiento hacia un lugar, Akkusativ)."
+        },
+        {
+          "heading": "Ejemplo con ubicación (Dativ)",
+          "body": "'Das Buch liegt auf dem Tisch' (el libro está sobre la mesa: no hay movimiento, es una posición fija, Dativ)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich hänge das Bild an ___ Wand (die Wand, movimiento -> Akkusativ).",
+          "choices": ["der", "die", "dem", "den"],
+          "answer": "die",
+          "explanation": "Movimiento hacia un lugar (wohin?) con Wechselpräposition = Akkusativ; femenino: die Wand."
+        },
+        {
+          "prompt": "Das Bild hängt an ___ Wand (ubicación fija -> Dativ).",
+          "choices": ["der", "die", "dem", "den"],
+          "answer": "der",
+          "explanation": "Ubicación fija (wo?) = Dativ; femenino en Dativ: der Wand."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "nebensaetze-weil-dass-wenn",
+    "level": "A2",
+    "topic": "Oraciones subordinadas",
+    "title": "Oraciones subordinadas: weil, dass, wenn",
+    "sort_order": 20,
+    "content": {
+      "sections": [
+        {
+          "heading": "El verbo se va al final",
+          "body": "En toda oración subordinada introducida por una conjunción como weil, dass o wenn, el verbo conjugado se coloca al final: 'Ich lerne Deutsch, weil ich in Deutschland lebe'."
+        },
+        {
+          "heading": "weil vs denn",
+          "body": "Ambos significan 'porque', pero 'weil' manda el verbo al final (subordinada) y 'denn' no cambia el orden (es como una oración principal): 'Ich bleibe zu Hause, denn es regnet' / 'Ich bleibe zu Hause, weil es regnet'."
+        },
+        {
+          "heading": "dass y wenn",
+          "body": "'dass' introduce una idea después de verbos como sagen, glauben, denken: 'Ich glaube, dass er recht hat'. 'wenn' introduce una condición o algo repetido: 'Wenn ich Zeit habe, lerne ich Deutsch'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich bleibe zu Hause, weil es ___ (regnen).",
+          "choices": ["regnet", "regnet.", "es regnet", "regnet es"],
+          "answer": "regnet",
+          "explanation": "Con 'weil' el verbo va al final de la subordinada: ..., weil es regnet."
+        },
+        {
+          "prompt": "Ich glaube, ___ er recht hat.",
+          "choices": ["weil", "wenn", "dass", "denn"],
+          "answer": "dass",
+          "explanation": "Después de 'glauben' se introduce la idea con 'dass'."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "possessivartikel-dativ-akkusativ",
+    "level": "A2",
+    "topic": "Casos",
+    "title": "Posesivos en Dativ y Akkusativ",
+    "sort_order": 21,
+    "content": {
+      "sections": [
+        {
+          "heading": "Posesivos en Akkusativ",
+          "body": "Solo cambia la forma masculina: mein -> meinen. Femenino, neutro y plural se comportan como en Nominativ: 'Ich sehe meinen Bruder / meine Schwester / mein Kind'."
+        },
+        {
+          "heading": "Posesivos en Dativ",
+          "body": "Todas las formas cambian: mein -> meinem (masc/neutro), meiner (fem), meinen (plural): 'Ich helfe meinem Bruder / meiner Schwester / meinen Eltern'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich sehe ___ Bruder (mein, Akkusativ, der Bruder).",
+          "choices": ["mein", "meine", "meinen", "meinem"],
+          "answer": "meinen",
+          "explanation": "Masculino en Akkusativ: mein -> meinen."
+        },
+        {
+          "prompt": "Ich helfe ___ Schwester (mein, Dativ, die Schwester).",
+          "choices": ["meine", "meiner", "meinen", "meinem"],
+          "answer": "meiner",
+          "explanation": "Femenino en Dativ: mein -> meiner."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "reflexive-verben",
+    "level": "A2",
+    "topic": "Verbos",
+    "title": "Verbos reflexivos",
+    "sort_order": 22,
+    "content": {
+      "sections": [
+        {
+          "heading": "Pronombres reflexivos",
+          "body": "mich, dich, sich, uns, euch, sich. Muchos verbos alemanes son reflexivos aunque en español no lo sean: sich freuen (alegrarse), sich interessieren (interesarse), sich beeilen (darse prisa)."
+        },
+        {
+          "heading": "Posición del pronombre",
+          "body": "Va normalmente después del verbo conjugado: 'Ich freue mich auf die Party' (Estoy deseando la fiesta). En Dativ (menos común) se usa cuando ya hay otro objeto en Akkusativ: 'Ich putze mir die Zähne'."
+        },
+        {
+          "heading": "Verbos reflexivos frecuentes",
+          "body": "sich duschen (ducharse), sich anziehen (vestirse), sich erinnern an (acordarse de), sich fühlen (sentirse): 'Ich fühle mich gut heute'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich freue ___ auf den Urlaub (yo, reflexivo).",
+          "choices": ["mir", "mich", "ich", "meine"],
+          "answer": "mich",
+          "explanation": "'sich freuen' usa el pronombre reflexivo en Akkusativ: ich freue mich."
+        },
+        {
+          "prompt": "Wie fühlst du ___ heute?",
+          "choices": ["dich", "dir", "du", "sich"],
+          "answer": "dich",
+          "explanation": "'sich fühlen' con 'du' usa el reflexivo 'dich'."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "praeteritum-alle-verben",
+    "level": "B1",
+    "topic": "Tiempos verbales",
+    "title": "Präteritum de todos los verbos (uso escrito)",
+    "sort_order": 23,
+    "content": {
+      "sections": [
+        {
+          "heading": "Präteritum en la escritura",
+          "body": "Aunque al hablar predomina el Perfekt, en textos escritos (noticias, cuentos, informes) el Präteritum es el tiempo estándar para narrar el pasado: 'Er ging zur Arbeit und traf seinen Freund'."
+        },
+        {
+          "heading": "Verbos regulares (schwache Verben)",
+          "body": "raíz + -te: lernen -> ich lernte, du lerntest, er lernte, wir lernten. Es un patrón muy regular y fácil de generar."
+        },
+        {
+          "heading": "Verbos irregulares (starke Verben)",
+          "body": "Cambian la vocal de la raíz y no llevan -te: gehen -> ich ging, sehen -> ich sah, kommen -> ich kam, schreiben -> ich schrieb, fahren -> ich fuhr. Hay que memorizar las formas."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Er ___ nach Hause (gehen, Präteritum).",
+          "choices": ["geht", "ging", "gegangen", "gehte"],
+          "answer": "ging",
+          "explanation": "gehen es irregular en Präteritum: er ging."
+        },
+        {
+          "prompt": "Ich ___ Deutsch drei Jahre (lernen, Präteritum, regular).",
+          "choices": ["lernte", "lernt", "gelernt", "lerne"],
+          "answer": "lernte",
+          "explanation": "Verbo regular en Präteritum: raíz + -te = lernte."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "plusquamperfekt",
+    "level": "B1",
+    "topic": "Tiempos verbales",
+    "title": "Plusquamperfekt: el pasado anterior al pasado",
+    "sort_order": 24,
+    "content": {
+      "sections": [
+        {
+          "heading": "Formación",
+          "body": "Se forma con hatte/war (Präteritum de haben/sein) + Partizip II: 'Ich hatte das Buch schon gelesen, als der Film kam' (Ya había leído el libro cuando llegó la película)."
+        },
+        {
+          "heading": "Cuándo se usa",
+          "body": "Describe una acción que ocurrió ANTES de otra acción pasada, para marcar el orden temporal: 'Nachdem ich gegessen hatte, ging ich spazieren' (Después de haber comido, fui a pasear)."
+        },
+        {
+          "heading": "nachdem + Plusquamperfekt",
+          "body": "La conjunción 'nachdem' casi siempre va con Plusquamperfekt en la subordinada y Präteritum/Perfekt en la principal, marcando claramente qué pasó primero."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Nachdem ich gegessen ___, ging ich spazieren.",
+          "choices": ["habe", "hatte", "war", "bin"],
+          "answer": "hatte",
+          "explanation": "'nachdem' + acción anterior usa Plusquamperfekt: hatte gegessen."
+        },
+        {
+          "prompt": "Ich ___ schon nach Hause gegangen, als du anrufst hast.",
+          "choices": ["habe", "hatte", "war", "bin"],
+          "answer": "war",
+          "explanation": "'gehen' usa sein; Plusquamperfekt: war gegangen (ya me había ido)."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "relativsaetze",
+    "level": "B1",
+    "topic": "Oraciones subordinadas",
+    "title": "Oraciones de relativo (Relativsätze)",
+    "sort_order": 25,
+    "content": {
+      "sections": [
+        {
+          "heading": "El pronombre relativo",
+          "body": "der, die, das (y sus formas en cada caso) se usan para añadir información sobre un sustantivo, con el verbo al final: 'Der Mann, der dort steht, ist mein Nachbar' (El hombre que está allí es mi vecino)."
+        },
+        {
+          "heading": "Concordancia con el caso",
+          "body": "El pronombre relativo concuerda en género/número con el sustantivo al que se refiere, pero su caso depende de su función dentro de la subordinada: 'Die Frau, die ich kenne' (Akkusativ, objeto) vs 'Die Frau, der ich helfe' (Dativ, con helfen)."
+        },
+        {
+          "heading": "Con preposición",
+          "body": "Si el relativo va con preposición, esta se coloca justo antes: 'Das ist das Haus, in dem ich wohne' (Esta es la casa en la que vivo)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Der Mann, ___ dort steht, ist mein Nachbar.",
+          "choices": ["der", "den", "dem", "die"],
+          "answer": "der",
+          "explanation": "'der Mann' es sujeto de la subordinada (steht), por eso el relativo va en Nominativ: der."
+        },
+        {
+          "prompt": "Die Frau, ___ ich helfe, ist Ärztin (helfen pide Dativ).",
+          "choices": ["die", "der", "den", "deren"],
+          "answer": "der",
+          "explanation": "'helfen' pide Dativ; femenino en Dativ: der."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "konjunktiv-ii",
+    "level": "B1",
+    "topic": "Modo",
+    "title": "Konjunktiv II: würde, hätte, wäre",
+    "sort_order": 26,
+    "content": {
+      "sections": [
+        {
+          "heading": "Formación con würde",
+          "body": "Para la mayoría de verbos se usa 'würde' + infinitivo: 'Ich würde gerne nach Berlin fahren' (Me gustaría ir a Berlín). Es el equivalente al condicional español."
+        },
+        {
+          "heading": "Formas propias: wäre, hätte, könnte",
+          "body": "sein -> wäre, haben -> hätte, können -> könnte, müssen -> müsste. Se usan solas, sin 'würde': 'Ich hätte gern einen Kaffee', 'Das wäre toll'."
+        },
+        {
+          "heading": "Usos principales",
+          "body": "Peticiones educadas ('Könnten Sie mir helfen?'), deseos ('Ich wäre gern reich') y condicionales irreales ('Wenn ich Zeit hätte, würde ich mehr lernen')."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "___ Sie mir bitte helfen? (petición educada, können)",
+          "choices": ["Können", "Könnten", "Konnten", "Kann"],
+          "answer": "Könnten",
+          "explanation": "Konjunktiv II de können para peticiones educadas: Könnten Sie...?"
+        },
+        {
+          "prompt": "Wenn ich Zeit ___, würde ich mehr Sport machen (haben).",
+          "choices": ["habe", "hatte", "hätte", "haben würde"],
+          "answer": "hätte",
+          "explanation": "Konjunktiv II de haben: hätte, usado en la condición irreal."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "passiv-praesens-praeteritum",
+    "level": "B1",
+    "topic": "Voz pasiva",
+    "title": "La voz pasiva en presente y pasado",
+    "sort_order": 27,
+    "content": {
+      "sections": [
+        {
+          "heading": "Formación en presente",
+          "body": "werden (conjugado) + Partizip II: 'Das Auto wird repariert' (El coche está siendo reparado / se repara). El sujeto de la pasiva es quien recibe la acción, no quien la hace."
+        },
+        {
+          "heading": "Formación en pasado (Präteritum)",
+          "body": "wurde + Partizip II: 'Das Auto wurde repariert' (El coche fue reparado). Es la forma más común para narrar hechos pasados en pasiva."
+        },
+        {
+          "heading": "El agente con 'von'",
+          "body": "Si se quiere mencionar quién hace la acción, se usa 'von' + Dativ: 'Das Auto wurde von meinem Bruder repariert' (El coche fue reparado por mi hermano)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Das Haus ___ 1990 gebaut (werden, Präteritum pasivo).",
+          "choices": ["wird", "wurde", "war", "ist"],
+          "answer": "wurde",
+          "explanation": "Pasiva en pasado: wurde + Partizip II = wurde gebaut."
+        },
+        {
+          "prompt": "Der Brief wird ___ meiner Chefin geschrieben (agente).",
+          "choices": ["von", "durch", "bei", "mit"],
+          "answer": "von",
+          "explanation": "El agente en pasiva se introduce con 'von' + Dativ."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "genitiv",
+    "level": "B1",
+    "topic": "Casos",
+    "title": "El caso Genitiv",
+    "sort_order": 28,
+    "content": {
+      "sections": [
+        {
+          "heading": "Formas del artículo",
+          "body": "der -> des, die -> der, das -> des, plural -> der. Los sustantivos masculinos y neutros añaden -s o -es: der Mann -> des Mannes, das Kind -> des Kindes."
+        },
+        {
+          "heading": "Cuándo se usa",
+          "body": "Expresa posesión o pertenencia, como el 'de' del español: 'das Auto meines Bruders' (el coche de mi hermano). En el alemán hablado se sustituye a menudo por 'von' + Dativ: 'das Auto von meinem Bruder'."
+        },
+        {
+          "heading": "Preposiciones con Genitiv",
+          "body": "während (durante), trotz (a pesar de), wegen (por/debido a) y statt (en lugar de) suelen ir con Genitiv en registro formal: 'Wegen des Regens bleiben wir zu Hause'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "das Auto ___ Bruders (mein, Genitiv).",
+          "choices": ["mein", "meines", "meinem", "meinen"],
+          "answer": "meines",
+          "explanation": "Masculino en Genitiv: mein -> meines, y el sustantivo añade -s: Bruders."
+        },
+        {
+          "prompt": "Wegen ___ Regens bleiben wir zu Hause (der Regen, Genitiv).",
+          "choices": ["der", "des", "dem", "den"],
+          "answer": "des",
+          "explanation": "'wegen' pide Genitiv; masculino en Genitiv: des."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "nebensaetze-obwohl-damit-umzu",
+    "level": "B1",
+    "topic": "Oraciones subordinadas",
+    "title": "obwohl, damit, um...zu: nexos avanzados",
+    "sort_order": 29,
+    "content": {
+      "sections": [
+        {
+          "heading": "obwohl (aunque)",
+          "body": "Introduce una contradicción, con el verbo al final: 'Ich gehe arbeiten, obwohl ich krank bin' (Voy a trabajar, aunque estoy enfermo)."
+        },
+        {
+          "heading": "damit (para que)",
+          "body": "Se usa cuando el sujeto de las dos partes es diferente: 'Ich erkläre es langsam, damit du es verstehst' (Lo explico despacio para que tú lo entiendas)."
+        },
+        {
+          "heading": "um...zu (para + infinitivo)",
+          "body": "Se usa cuando el sujeto es el mismo en ambas partes, sin conjugar el segundo verbo: 'Ich lerne Deutsch, um in Deutschland zu arbeiten' (Aprendo alemán para trabajar en Alemania)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich lerne jeden Tag, ___ mein Deutsch zu verbessern (mismo sujeto).",
+          "choices": ["damit", "obwohl", "um", "weil"],
+          "answer": "um",
+          "explanation": "Mismo sujeto en ambas partes -> 'um...zu' + infinitivo."
+        },
+        {
+          "prompt": "Ich spreche langsam, ___ du mich verstehst (sujetos diferentes).",
+          "choices": ["um", "damit", "obwohl", "dass"],
+          "answer": "damit",
+          "explanation": "Sujetos distintos (ich / du) -> se usa 'damit' con verbo conjugado."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "adjektivdeklination-completa",
+    "level": "B1",
+    "topic": "Adjetivos",
+    "title": "Declinación completa del adjetivo (los 3 tipos)",
+    "sort_order": 30,
+    "content": {
+      "sections": [
+        {
+          "heading": "Con artículo definido (schwache Deklination)",
+          "body": "El artículo ya marca el caso, así que el adjetivo solo distingue Nominativ/Akkusativ singular (-e) del resto (-en): 'der gute Mann', 'den guten Mann', 'dem guten Mann'."
+        },
+        {
+          "heading": "Con artículo indefinido (gemischte Deklination)",
+          "body": "El adjetivo lleva la marca fuerte solo donde el artículo 'ein' no la tiene (Nominativ masc./neutro y Akkusativ neutro): 'ein guter Mann', 'ein gutes Kind', pero en los demás casos se comporta como con artículo definido."
+        },
+        {
+          "heading": "Sin artículo (starke Deklination)",
+          "body": "El adjetivo lleva él mismo la marca de caso, como si fuera un artículo: 'guter Kaffee' (Nominativ), 'gutes Wetter', 'mit gutem Wetter' (Dativ)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "mit gut___ Wetter (sin artículo, Dativ, das Wetter).",
+          "choices": ["-e", "-em", "-es", "-en"],
+          "answer": "-em",
+          "explanation": "Sin artículo, el adjetivo marca el caso él mismo; neutro en Dativ: -em."
+        },
+        {
+          "prompt": "ein gut___ Kind (indefinido, Nominativ, das Kind).",
+          "choices": ["-e", "-er", "-es", "-en"],
+          "answer": "-es",
+          "explanation": "Con 'ein' en neutro Nominativ, el adjetivo lleva la marca fuerte: -es."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "verben-mit-praepositionen",
+    "level": "B1",
+    "topic": "Preposiciones",
+    "title": "Verbos con preposición fija",
+    "sort_order": 31,
+    "content": {
+      "sections": [
+        {
+          "heading": "Qué son",
+          "body": "Muchos verbos alemanes van siempre con la misma preposición, que no siempre coincide con el español: sich freuen auf (Akkusativ, algo futuro), sich freuen über (Akkusativ, algo ya pasado), warten auf (esperar a), sich interessieren für (interesarse por)."
+        },
+        {
+          "heading": "Más ejemplos frecuentes",
+          "body": "denken an (pensar en), sich erinnern an (acordarse de), Angst haben vor (tener miedo de, Dativ), sprechen über/von (hablar de/sobre), sich bedanken für (agradecer por)."
+        },
+        {
+          "heading": "Cómo aprenderlos",
+          "body": "Igual que el artículo de un sustantivo, la preposición y el caso se aprenden junto con el verbo, como una unidad fija: 'warten auf + Akkusativ' se memoriza en bloque."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich warte ___ den Bus (esperar a, Akkusativ).",
+          "choices": ["auf", "für", "an", "über"],
+          "answer": "auf",
+          "explanation": "'warten auf' + Akkusativ: esperar algo/a alguien."
+        },
+        {
+          "prompt": "Ich interessiere mich ___ Musik (interesarse por).",
+          "choices": ["an", "für", "auf", "von"],
+          "answer": "für",
+          "explanation": "'sich interessieren für' + Akkusativ."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "indirekte-fragesaetze",
+    "level": "B1",
+    "topic": "Oraciones subordinadas",
+    "title": "Preguntas indirectas: ob y W-Wörter",
+    "sort_order": 32,
+    "content": {
+      "sections": [
+        {
+          "heading": "Con W-Wort",
+          "body": "Cuando integramos una pregunta con W-Wort dentro de otra frase, el verbo se va al final: 'Ich weiß nicht, wo er wohnt' (No sé dónde vive)."
+        },
+        {
+          "heading": "Con ob (para preguntas de sí/no)",
+          "body": "Si la pregunta original no tenía W-Wort, se usa 'ob': 'Kommst du?' -> 'Ich weiß nicht, ob du kommst' (No sé si vienes)."
+        },
+        {
+          "heading": "Uso educado",
+          "body": "Muy útil para sonar más formal o cortés: 'Können Sie mir sagen, ob der Zug pünktlich ist?' en vez de una pregunta directa."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Ich weiß nicht, ___ er kommt (pregunta original sin W-Wort: 'Kommt er?').",
+          "choices": ["dass", "ob", "wenn", "wie"],
+          "answer": "ob",
+          "explanation": "Sin W-Wort original -> se usa 'ob' en la pregunta indirecta."
+        },
+        {
+          "prompt": "Können Sie mir sagen, wo der Bahnhof ___ ?",
+          "choices": ["ist", "er ist", "ist er", "sein ist"],
+          "answer": "ist",
+          "explanation": "En la pregunta indirecta con W-Wort, el verbo va al final: wo der Bahnhof ist."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "konjunktiv-i",
+    "level": "B2",
+    "topic": "Modo",
+    "title": "Konjunktiv I: el discurso indirecto",
+    "sort_order": 33,
+    "content": {
+      "sections": [
+        {
+          "heading": "Para qué sirve",
+          "body": "El Konjunktiv I se usa sobre todo en el discurso indirecto (reported speech) en textos formales y noticias, para transmitir lo que otra persona dijo sin comprometerse con su veracidad: 'Er sagte, er sei krank' (Dijo que estaba enfermo)."
+        },
+        {
+          "heading": "Formación",
+          "body": "Raíz del infinitivo + terminaciones -e, -est, -e, -en, -et, -en: 'er sei' (de sein, forma especial), 'er habe' (de haben), 'er komme' (de kommen), 'er könne' (de können)."
+        },
+        {
+          "heading": "En el habla cotidiana",
+          "body": "En alemán hablado se sustituye a menudo por 'würde' + infinitivo o simplemente el indicativo con 'dass': 'Er sagte, dass er krank ist' es igualmente común y aceptable fuera de textos muy formales."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Er sagte, er ___ müde (sein, Konjunktiv I).",
+          "choices": ["ist", "sei", "wäre", "sein"],
+          "answer": "sei",
+          "explanation": "Konjunktiv I de sein: er sei (forma especial, muy usada en discurso indirecto)."
+        },
+        {
+          "prompt": "Sie behauptet, sie ___ keine Zeit (haben, Konjunktiv I).",
+          "choices": ["hat", "habe", "hätte", "haben"],
+          "answer": "habe",
+          "explanation": "Konjunktiv I de haben: sie habe."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "passiv-mit-modalverben",
+    "level": "B2",
+    "topic": "Voz pasiva",
+    "title": "Pasiva con verbos modales",
+    "sort_order": 34,
+    "content": {
+      "sections": [
+        {
+          "heading": "Formación",
+          "body": "Verbo modal (conjugado) + Partizip II + werden (infinitivo, al final): 'Das Problem muss gelöst werden' (El problema debe ser resuelto)."
+        },
+        {
+          "heading": "Uso frecuente en contextos formales",
+          "body": "Muy común en instrucciones, normativas y textos técnicos: 'Die Unterlagen müssen bis Freitag eingereicht werden' (Los documentos deben entregarse antes del viernes)."
+        },
+        {
+          "heading": "Pasiva con können (posibilidad)",
+          "body": "'Das kann leicht erklärt werden' (Esto puede explicarse fácilmente): expresa que algo es posible de hacer, sin mencionar quién lo hace."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Die Aufgabe muss heute ___ (lösen + werden).",
+          "choices": ["gelöst werden", "werden gelöst", "gelöst sein", "lösen werden"],
+          "answer": "gelöst werden",
+          "explanation": "Pasiva con modal: Partizip II + werden al final: gelöst werden."
+        },
+        {
+          "prompt": "Das ___ nicht toleriert werden (können, negación).",
+          "choices": ["kann", "könnte", "kannte", "können"],
+          "answer": "kann",
+          "explanation": "'kann ... toleriert werden': el modal va conjugado, el resto al final."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "partizipialattribute",
+    "level": "B2",
+    "topic": "Adjetivos",
+    "title": "Participios como adjetivo (Partizipialattribute)",
+    "sort_order": 35,
+    "content": {
+      "sections": [
+        {
+          "heading": "Partizip I (gerundio/activo)",
+          "body": "infinitivo + -d, usado como adjetivo con significado activo/en curso: 'der schlafende Mann' (el hombre que duerme/durmiendo), 'die steigenden Preise' (los precios que suben)."
+        },
+        {
+          "heading": "Partizip II (pasivo/completado)",
+          "body": "Se usa como adjetivo con significado pasivo o de acción completada: 'der geschriebene Brief' (la carta escrita), 'das reparierte Auto' (el coche reparado)."
+        },
+        {
+          "heading": "Por qué importa",
+          "body": "Es un recurso típico de textos escritos formales (prensa, informes) que permite condensar una oración de relativo en un solo adjetivo: 'der Mann, der schläft' -> 'der schlafende Mann'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "'der Mann, der schläft' de forma condensada:",
+          "choices": ["der geschlafene Mann", "der schlafende Mann", "der schlafte Mann", "der schlafen Mann"],
+          "answer": "der schlafende Mann",
+          "explanation": "Partizip I (activo, en curso): schlafend + terminación de adjetivo -e."
+        },
+        {
+          "prompt": "'der Brief, der geschrieben wurde' de forma condensada:",
+          "choices": ["der schreibende Brief", "der geschriebene Brief", "der schreibene Brief", "der geschreibende Brief"],
+          "answer": "der geschriebene Brief",
+          "explanation": "Partizip II (pasivo/completado): geschrieben + terminación de adjetivo -e."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "nominalisierung",
+    "level": "B2",
+    "topic": "Estilo",
+    "title": "Nominalización de verbos",
+    "sort_order": 36,
+    "content": {
+      "sections": [
+        {
+          "heading": "Qué es",
+          "body": "Convertir un verbo en sustantivo (siempre neutro con -en, o con sufijos -ung/-heit/-keit) es un recurso muy típico del alemán escrito formal: 'lernen' -> 'das Lernen', 'lösen' -> 'die Lösung'."
+        },
+        {
+          "heading": "Por qué se usa",
+          "body": "Permite condensar oraciones subordinadas en una frase más corta y formal: 'Weil die Preise steigen, ...' -> 'Wegen des Preisanstiegs, ...' (Debido a la subida de precios)."
+        },
+        {
+          "heading": "Sufijos comunes",
+          "body": "-ung (die Lösung, de lösen), -heit/-keit (die Freiheit, die Möglichkeit), infinitivo sustantivado (das Rauchen, de rauchen: el fumar)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Sustantivo de 'lösen' (resolver):",
+          "choices": ["das Lösen", "die Lösung", "der Löser", "das Gelöste"],
+          "answer": "die Lösung",
+          "explanation": "'lösen' -> 'die Lösung' (la solución), sufijo -ung muy productivo."
+        },
+        {
+          "prompt": "'das Rauchen ist hier verboten' significa aproximadamente:",
+          "choices": ["El humo está aquí prohibido", "Fumar está prohibido aquí", "El fumador está prohibido", "Está prohibido el humo"],
+          "answer": "Fumar está prohibido aquí",
+          "explanation": "'das Rauchen' es el infinitivo sustantivado de 'rauchen' (fumar)."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "konnektoren-erweitert",
+    "level": "B2",
+    "topic": "Estilo",
+    "title": "Conectores avanzados: je...desto, sowohl...als auch",
+    "sort_order": 37,
+    "content": {
+      "sections": [
+        {
+          "heading": "je...desto (cuanto más... más)",
+          "body": "Compara dos cosas que crecen o cambian juntas. La primera parte lleva el verbo al final (subordinada) y la segunda invierte el orden: 'Je mehr ich lerne, desto besser spreche ich' (Cuanto más aprendo, mejor hablo)."
+        },
+        {
+          "heading": "sowohl...als auch (tanto... como)",
+          "body": "Une dos elementos con el mismo peso: 'Ich spreche sowohl Deutsch als auch Englisch' (Hablo tanto alemán como inglés)."
+        },
+        {
+          "heading": "weder...noch (ni... ni)",
+          "body": "Niega ambos elementos por igual: 'Ich habe weder Zeit noch Geld' (No tengo ni tiempo ni dinero)."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Je mehr ich arbeite, ___ müder werde ich.",
+          "choices": ["desto", "als", "sowohl", "weder"],
+          "answer": "desto",
+          "explanation": "'je...desto': la segunda parte se introduce con 'desto' e invierte el orden verbo-sujeto."
+        },
+        {
+          "prompt": "Ich habe ___ Zeit ___ Geld (ni tiempo ni dinero).",
+          "choices": ["sowohl / als auch", "weder / noch", "je / desto", "entweder / oder"],
+          "answer": "weder / noch",
+          "explanation": "'weder...noch' niega ambos elementos: weder Zeit noch Geld."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "relativsaetze-erweitert",
+    "level": "B2",
+    "topic": "Oraciones subordinadas",
+    "title": "Relativsätze avanzadas: wo, was, preposición+Relativpronomen",
+    "sort_order": 38,
+    "content": {
+      "sections": [
+        {
+          "heading": "was como relativo",
+          "body": "Se usa cuando el antecedente es toda una frase, algo indefinido (alles, etwas, nichts) o un superlativo: 'Er kam spät, was mich ärgerte' (Llegó tarde, lo cual me molestó); 'Das ist alles, was ich weiß'."
+        },
+        {
+          "heading": "wo como relativo de lugar",
+          "body": "Alternativa más natural que 'in dem/in der' para lugares: 'Die Stadt, wo ich geboren wurde' en vez de 'die Stadt, in der ich geboren wurde' (ambas son correctas)."
+        },
+        {
+          "heading": "Preposición + wo(r)- para cosas",
+          "body": "Cuando el antecedente es una cosa (no persona) con preposición, se usa wo(r) + preposición: 'Das Projekt, worüber wir sprechen' (El proyecto del que hablamos), en vez de 'über das wir sprechen'."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Er hat die Prüfung bestanden, ___ mich sehr freut.",
+          "choices": ["was", "wo", "der", "wer"],
+          "answer": "was",
+          "explanation": "El antecedente es toda la frase anterior, no un sustantivo concreto: se usa 'was'."
+        },
+        {
+          "prompt": "Das ist das Thema, ___ wir lange diskutiert haben (über + relativo, cosa).",
+          "choices": ["über das", "worüber", "über wen", "wobei"],
+          "answer": "worüber",
+          "explanation": "Con antecedente-cosa y preposición 'über', se contrae en wo(r)-: worüber."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "futur",
+    "level": "B2",
+    "topic": "Tiempos verbales",
+    "title": "Futuro: Futur I y Futur II",
+    "sort_order": 39,
+    "content": {
+      "sections": [
+        {
+          "heading": "El presente ya sirve como futuro",
+          "body": "En alemán, lo más habitual para hablar del futuro es usar el presente con un marcador temporal: 'Ich fahre morgen nach Berlin' (Voy a viajar a Berlín mañana)."
+        },
+        {
+          "heading": "Futur I: werden + infinitivo",
+          "body": "Se usa para predicciones, promesas o suposiciones sobre el futuro: 'Es wird morgen regnen' (Va a llover mañana), 'Ich werde dir helfen' (Te ayudaré, como promesa)."
+        },
+        {
+          "heading": "Futur II: suposición sobre el pasado",
+          "body": "werden + Partizip II + haben/sein: 'Er wird schon angekommen sein' (Seguramente ya habrá llegado): expresa una suposición sobre algo que ya habrá ocurrido en un momento futuro o presente."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Es ___ morgen regnen (predicción, Futur I).",
+          "choices": ["wird", "wurde", "ist", "war"],
+          "answer": "wird",
+          "explanation": "Futur I: werden (conjugado) + infinitivo al final: wird regnen."
+        },
+        {
+          "prompt": "Er ___ schon angekommen sein (suposición sobre el pasado, Futur II).",
+          "choices": ["wird", "würde", "wurde", "war"],
+          "answer": "wird",
+          "explanation": "Futur II: wird + Partizip II + sein/haben: wird angekommen sein."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "textkohaerenz",
+    "level": "B2",
+    "topic": "Estilo",
+    "title": "Cohesión textual para escribir mejor",
+    "sort_order": 40,
+    "content": {
+      "sections": [
+        {
+          "heading": "Conectores de estructura",
+          "body": "zunächst (en primer lugar), außerdem (además), allerdings (sin embargo), dennoch (a pesar de ello), schließlich (finalmente) organizan un texto argumentativo de forma clara, típico en Schreiben de B2."
+        },
+        {
+          "heading": "Evitar repetir palabras",
+          "body": "Usar pronombres, sinónimos o nominalizaciones para no repetir el mismo sustantivo: en vez de repetir 'das Problem' tres veces, usar 'dieses', 'die Schwierigkeit' o simplemente omitirlo cuando el contexto es claro."
+        },
+        {
+          "heading": "Conectar párrafos",
+          "body": "Empezar un párrafo nuevo retomando una idea del anterior ('Ein weiterer wichtiger Punkt ist...', 'In Bezug darauf...') ayuda a que el texto fluya como una argumentación coherente, no como frases sueltas."
+        }
+      ],
+      "exercises": [
+        {
+          "prompt": "Conector para introducir un contraste fuerte:",
+          "choices": ["außerdem", "allerdings", "zunächst", "schließlich"],
+          "answer": "allerdings",
+          "explanation": "'allerdings' (sin embargo) introduce un contraste o matización, típico en textos argumentativos."
+        },
+        {
+          "prompt": "Conector para añadir un argumento más:",
+          "choices": ["dennoch", "außerdem", "obwohl", "als"],
+          "answer": "außerdem",
+          "explanation": "'außerdem' (además) suma un argumento nuevo a lo ya dicho."
+        }
+      ]
+    }
+  }
+]

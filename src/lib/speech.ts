@@ -1,13 +1,87 @@
+let cachedVoices: SpeechSynthesisVoice[] = [];
+// Referencia viva fuera de la función: en iOS Safari, si el objeto
+// SpeechSynthesisUtterance queda sin ninguna referencia externa el motor
+// puede recolectarlo como basura a mitad de la frase y esta se corta en
+// silencio. Guardarlo en una variable de módulo evita ese bug.
+let activeUtterance: SpeechSynthesisUtterance | null = null;
+let resumeWatchdog: ReturnType<typeof setInterval> | null = null;
+
+function refreshVoices() {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length) cachedVoices = voices;
+}
+
+if (typeof window !== "undefined" && "speechSynthesis" in window) {
+  // En móvil (sobre todo Android) las voces no están listas en el primer
+  // render: se cargan de forma asíncrona. Las precargamos cuanto antes y
+  // nos suscribimos a los cambios para tenerlas listas al primer toque.
+  refreshVoices();
+  window.speechSynthesis.addEventListener("voiceschanged", refreshVoices);
+}
+
+function pickGermanVoice(): SpeechSynthesisVoice | null {
+  refreshVoices();
+  return (
+    cachedVoices.find((v) => v.lang.toLowerCase() === "de-de") ??
+    cachedVoices.find((v) => v.lang.toLowerCase().startsWith("de")) ??
+    null
+  );
+}
+
+function stopResumeWatchdog() {
+  if (resumeWatchdog !== null) {
+    clearInterval(resumeWatchdog);
+    resumeWatchdog = null;
+  }
+}
+
 export function speakGerman(text: string) {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "de-DE";
-  utterance.rate = 0.95;
-  const voices = window.speechSynthesis.getVoices();
-  const germanVoice = voices.find((v) => v.lang.startsWith("de"));
-  if (germanVoice) utterance.voice = germanVoice;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
+  const synth = window.speechSynthesis;
+
+  const runSpeak = () => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "de-DE";
+    utterance.rate = 0.95;
+    const germanVoice = pickGermanVoice();
+    if (germanVoice) utterance.voice = germanVoice;
+
+    utterance.onend = () => {
+      stopResumeWatchdog();
+      if (activeUtterance === utterance) activeUtterance = null;
+    };
+    utterance.onerror = () => {
+      stopResumeWatchdog();
+      if (activeUtterance === utterance) activeUtterance = null;
+    };
+
+    activeUtterance = utterance;
+    synth.speak(utterance);
+
+    // Chrome (escritorio y Android) pausa utterances de más de ~15s si la
+    // pestaña pierde foco o el dispositivo bloquea pantalla, y nunca las
+    // reanuda solo. Este watchdog las reactiva mientras dure la frase.
+    stopResumeWatchdog();
+    resumeWatchdog = setInterval(() => {
+      if (!synth.speaking) {
+        stopResumeWatchdog();
+        return;
+      }
+      if (synth.paused) synth.resume();
+    }, 4000);
+  };
+
+  // Cancelar y hablar en el mismo tick hace que Chrome/Android descarte la
+  // nueva frase en silencio. Solo forzamos ese pequeño respiro cuando de
+  // verdad había algo sonando; si no, hablamos al instante (necesario para
+  // que iOS Safari reconozca el toque del usuario como gesto válido).
+  if (synth.speaking || synth.pending) {
+    synth.cancel();
+    setTimeout(runSpeak, 60);
+  } else {
+    runSpeak();
+  }
 }
 
 export function normalizeForComparison(text: string): string {

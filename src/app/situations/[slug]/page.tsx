@@ -5,9 +5,10 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import RequireAuth from "@/components/RequireAuth";
 import { getSituationBySlug } from "@/lib/data/situations";
-import { speakGerman, similarityScore } from "@/lib/speech";
+import { similarityScore } from "@/lib/speech";
 import { useSpeechRecognition } from "@/lib/useSpeechRecognition";
-import { IconMic, IconVolume } from "@/components/icons";
+import { IconMic } from "@/components/icons";
+import SpeakButton from "@/components/SpeakButton";
 import type { Article, Situation } from "@/lib/types/database";
 
 interface Correction {
@@ -233,13 +234,12 @@ function SituationContent() {
             <div key={`s-${i}`} className="rounded-2xl border border-stone-800 bg-stone-900/40 p-4">
               <div className="mb-1 flex items-center justify-between">
                 <span className="text-xs font-semibold text-amber-400">{s.speaker}</span>
-                <button
-                  onClick={() => speakGerman(s.text_de)}
-                  aria-label="Escuchar"
-                  className="rounded-full border border-stone-700 p-1.5 text-stone-400 hover:border-amber-500 hover:text-amber-300"
-                >
-                  <IconVolume size={13} />
-                </button>
+                <SpeakButton
+                  getText={() => s.text_de}
+                  label=""
+                  ariaLabel="Escuchar"
+                  className="rounded-full border border-stone-700 p-1.5 text-stone-400 transition hover:border-amber-500 hover:text-amber-300 disabled:opacity-50"
+                />
               </div>
               <p className="font-medium">{s.text_de}</p>
               <p className="text-sm text-stone-500 italic">{s.text_es}</p>
@@ -269,13 +269,12 @@ function SituationContent() {
             <div key={t.id} className="rounded-2xl border border-stone-800 bg-stone-900/40 p-4">
               <div className="mb-1 flex items-center justify-between">
                 <span className="text-xs font-semibold text-amber-400">{t.speaker}</span>
-                <button
-                  onClick={() => speakGerman(t.text_de)}
-                  aria-label="Escuchar"
-                  className="rounded-full border border-stone-700 p-1.5 text-stone-400 hover:border-amber-500 hover:text-amber-300"
-                >
-                  <IconVolume size={13} />
-                </button>
+                <SpeakButton
+                  getText={() => t.text_de}
+                  label=""
+                  ariaLabel="Escuchar"
+                  className="rounded-full border border-stone-700 p-1.5 text-stone-400 transition hover:border-amber-500 hover:text-amber-300 disabled:opacity-50"
+                />
               </div>
               <p className="font-medium">{t.text_de}</p>
               {t.text_es && <p className="text-sm text-stone-500 italic">{t.text_es}</p>}

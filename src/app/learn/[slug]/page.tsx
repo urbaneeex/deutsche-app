@@ -14,8 +14,9 @@ import {
   EXAM_PASS_SCORE,
 } from "@/lib/data/path";
 import { getCardsByDeckId } from "@/lib/data/flashcards";
-import { speakGerman, similarityScore } from "@/lib/speech";
+import { similarityScore } from "@/lib/speech";
 import { useSpeechRecognition } from "@/lib/useSpeechRecognition";
+import SpeakButton from "@/components/SpeakButton";
 import type { Card, PathStep } from "@/lib/types/database";
 
 const articleClass: Record<string, string> = {
@@ -127,15 +128,6 @@ function StepContent() {
     setQuizChecked(false);
   }
 
-  function speakVocabCard() {
-    const card = cards[vocabIndex];
-    if (vocabFlipped) {
-      speakGerman(card.example_sentence || card.word);
-    } else {
-      speakGerman(card.article ? `${card.article} ${card.word}` : card.word);
-    }
-  }
-
   return (
     <div className="animate-fade-in mx-auto max-w-2xl space-y-6">
       <Link href="/learn" className="text-sm text-stone-500 hover:text-stone-300">
@@ -220,15 +212,16 @@ function StepContent() {
               </>
             )}
           </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              speakVocabCard();
+          <SpeakButton
+            getText={() => {
+              const card = cards[vocabIndex];
+              return vocabFlipped
+                ? card.example_sentence || card.word
+                : card.article
+                  ? `${card.article} ${card.word}`
+                  : card.word;
             }}
-            className="mx-auto flex items-center gap-1 rounded-full border border-stone-700 px-3 py-1.5 text-xs text-stone-300 hover:border-amber-500"
-          >
-            Escuchar
-          </button>
+          />
           <button
             onClick={() => {
               if (vocabIndex + 1 < cards.length) {
@@ -253,12 +246,11 @@ function StepContent() {
           <div className="rounded-2xl border border-stone-800 bg-stone-900/50 p-5 text-center">
             <p className="mb-3 text-lg font-semibold">{pronunciationPhrases[pronIndex]}</p>
             <div className="flex items-center justify-center gap-3">
-              <button
-                onClick={() => speakGerman(pronunciationPhrases[pronIndex])}
-                className="rounded-full border border-stone-700 px-3 py-1.5 text-xs hover:border-amber-500"
-              >
-                🔊 Nativo
-              </button>
+              <SpeakButton
+                getText={() => pronunciationPhrases[pronIndex]}
+                label="Nativo"
+                stopPropagation={false}
+              />
               {supported && (
                 <button
                   onClick={() => (listening ? stop() : start())}

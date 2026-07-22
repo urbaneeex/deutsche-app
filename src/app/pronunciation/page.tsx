@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import RequireAuth from "@/components/RequireAuth";
 import { useAuth } from "@/components/AuthProvider";
 import { useSpeechRecognition } from "@/lib/useSpeechRecognition";
-import { speakGerman, similarityScore } from "@/lib/speech";
+import { similarityScore } from "@/lib/speech";
+import SpeakButton from "@/components/SpeakButton";
 import { getAllDecksWithCards } from "@/lib/data/flashcards";
 import {
   savePronunciationAttempt,
@@ -230,12 +231,13 @@ function PronunciationContent() {
                 <p className="text-sm text-stone-500 italic">{current.translation}</p>
               )}
             </div>
-            <button
-              onClick={() => speakGerman(current.text)}
-              className="shrink-0 rounded-full border border-stone-700 px-3 py-1.5 text-sm hover:border-amber-500"
-            >
-              🔊 Nativo
-            </button>
+            <SpeakButton
+              getText={() => current.text}
+              label="Nativo"
+              icon={false}
+              stopPropagation={false}
+              className="shrink-0 rounded-full border border-stone-700 px-3 py-1.5 text-sm transition hover:border-amber-500 disabled:opacity-50"
+            />
           </div>
 
           {!supported && (

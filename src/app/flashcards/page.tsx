@@ -11,14 +11,13 @@ import {
   type DeckStats,
 } from "@/lib/data/flashcards";
 import { REVIEW_BUTTONS } from "@/lib/srs";
-import { speakGerman } from "@/lib/speech";
+import SpeakButton from "@/components/SpeakButton";
 import type { Deck } from "@/lib/types/database";
 import {
   IconDotsVertical,
   IconEdit,
   IconSparkles,
   IconTrash,
-  IconVolume,
 } from "@/components/icons";
 
 const articleClass: Record<string, string> = {
@@ -337,7 +336,7 @@ function CategorySidebar({
   const groups = decks ? groupDecksByTopic(decks) : [];
 
   return (
-    <aside className="w-full shrink-0 space-y-4 sm:w-64">
+    <aside className="order-2 w-full shrink-0 space-y-4 sm:order-1 sm:w-64">
       <div>
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
           Categorías
@@ -549,10 +548,10 @@ function FlashcardsContent() {
   if (!decks || !selectedDeckId) {
     return (
       <div className="animate-fade-in flex flex-col gap-6 sm:flex-row">
-        <CategorySidebar {...sidebarProps} />
-        <p className="text-stone-400">
+        <p className="order-1 text-stone-400 sm:order-2">
           {!decks ? "Cargando mazos..." : "No hay mazos. Genera uno con IA."}
         </p>
+        <CategorySidebar {...sidebarProps} />
       </div>
     );
   }
@@ -560,8 +559,8 @@ function FlashcardsContent() {
   if (!queue) {
     return (
       <div className="animate-fade-in flex flex-col gap-6 sm:flex-row">
+        <p className="order-1 text-stone-400 sm:order-2">Cargando tarjetas...</p>
         <CategorySidebar {...sidebarProps} />
-        <p className="text-stone-400">Cargando tarjetas...</p>
       </div>
     );
   }
@@ -569,8 +568,7 @@ function FlashcardsContent() {
   if (queue.length === 0) {
     return (
       <div className="animate-fade-in flex flex-col gap-6 sm:flex-row">
-        <CategorySidebar {...sidebarProps} />
-        <div className="mx-auto w-full max-w-md flex-1">
+        <div className="order-1 mx-auto w-full max-w-md flex-1 sm:order-2">
           <DeckHeader
             deck={selectedDeck}
             onUpdated={handleDeckUpdated}
@@ -584,6 +582,7 @@ function FlashcardsContent() {
           </p>
           </div>
         </div>
+        <CategorySidebar {...sidebarProps} />
       </div>
     );
   }
@@ -591,8 +590,7 @@ function FlashcardsContent() {
   if (index >= queue.length) {
     return (
       <div className="animate-fade-in flex flex-col gap-6 sm:flex-row">
-        <CategorySidebar {...sidebarProps} />
-        <div className="flex-1 rounded-2xl border border-stone-800 bg-stone-900/50 p-8 text-center">
+        <div className="order-1 flex-1 rounded-2xl border border-stone-800 bg-stone-900/50 p-8 text-center sm:order-2">
           <p className="mb-1 text-4xl">✅</p>
           <h2 className="text-lg font-semibold">
             Sesión terminada: {sessionDone} tarjetas repasadas
@@ -604,20 +602,13 @@ function FlashcardsContent() {
             Repasar más
           </button>
         </div>
+        <CategorySidebar {...sidebarProps} />
       </div>
     );
   }
 
   const card = queue[index];
   const total = queue.length;
-
-  function speakCard() {
-    if (flipped) {
-      speakGerman(card.example_sentence || card.word);
-    } else {
-      speakGerman(card.article ? `${card.article} ${card.word}` : card.word);
-    }
-  }
 
   async function handleReview(quality: 0 | 3 | 4 | 5) {
     if (!user) return;
@@ -640,9 +631,7 @@ function FlashcardsContent() {
 
   return (
     <div className="animate-fade-in flex flex-col gap-6 sm:flex-row">
-      <CategorySidebar {...sidebarProps} />
-
-      <div className="mx-auto w-full max-w-md flex-1">
+      <div className="order-1 mx-auto w-full max-w-md flex-1 sm:order-2">
         <DeckHeader
           deck={selectedDeck}
           cardIndex={index + 1}
@@ -710,16 +699,17 @@ function FlashcardsContent() {
               )}
             </button>
 
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                speakCard();
-              }}
-              className="mx-auto mt-3 flex items-center gap-1.5 rounded-full border border-stone-700 px-3 py-1.5 text-xs text-stone-300 hover:border-amber-500"
-            >
-              <IconVolume size={14} />
-              Escuchar
-            </button>
+            <div className="mt-3">
+              <SpeakButton
+                getText={() =>
+                  flipped
+                    ? card.example_sentence || card.word
+                    : card.article
+                      ? `${card.article} ${card.word}`
+                      : card.word
+                }
+              />
+            </div>
           </div>
 
           <button
@@ -753,6 +743,8 @@ function FlashcardsContent() {
           </div>
         )}
       </div>
+
+      <CategorySidebar {...sidebarProps} />
     </div>
   );
 }

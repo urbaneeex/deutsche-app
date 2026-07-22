@@ -4,11 +4,6 @@ const NO_SUPPORT: SpeakResult = {
   ok: false,
   reason: "Este navegador no admite lectura en voz alta.",
 };
-const NO_VOICE: SpeakResult = {
-  ok: false,
-  reason:
-    "Tu dispositivo no tiene voz en alemán instalada. Revisa Ajustes → Accesibilidad → Texto a voz y descarga el idioma alemán.",
-};
 const SILENT_FAIL: SpeakResult = {
   ok: false,
   reason: "No se pudo reproducir el audio en este dispositivo. Inténtalo de nuevo.",
@@ -35,8 +30,9 @@ function refreshVoices() {
 
 if (hasSpeechSynthesis()) {
   // En móvil (sobre todo Android) las voces no están listas en el primer
-  // render: se cargan de forma asíncrona. Las precargamos cuanto antes y
-  // nos suscribimos a los cambios para tenerlas listas al primer toque.
+  // render: se cargan de forma asíncrona. Las precargamos en segundo plano
+  // para tenerlas disponibles cuanto antes, pero esto nunca debe bloquear
+  // la llamada real a speak() (ver comentario en speakGerman).
   refreshVoices();
   window.speechSynthesis.addEventListener("voiceschanged", refreshVoices);
 }
@@ -58,124 +54,86 @@ function stopResumeWatchdog() {
 }
 
 /**
- * iOS Safari (y algunos Android antiguos) necesitan que el motor de voz
- * reciba un primer speak() dentro de un gesto real del usuario para
- * "despertarse"; sin este calentamiento previo, la primera frase real
- * puede perderse en silencio aunque las siguientes sí suenen.
- */
-function primeSynthOnce(synth: SpeechSynthesis) {
-  if (primed) return;
-  primed = true;
-  try {
-    const warmup = new SpeechSynthesisUtterance(" ");
-    warmup.volume = 0;
-    synth.speak(warmup);
-  } catch {
-    // Best effort: si falla, el intento real seguirá su curso normal.
-  }
-}
-
-function waitForVoices(timeoutMs: number): Promise<void> {
-  if (cachedVoices.length || !hasSpeechSynthesis()) return Promise.resolve();
-  return new Promise((resolve) => {
-    const synth = window.speechSynthesis;
-    const timer = setTimeout(() => {
-      synth.removeEventListener("voiceschanged", onChange);
-      resolve();
-    }, timeoutMs);
-    function onChange() {
-      refreshVoices();
-      if (cachedVoices.length) {
-        clearTimeout(timer);
-        synth.removeEventListener("voiceschanged", onChange);
-        resolve();
-      }
-    }
-    synth.addEventListener("voiceschanged", onChange);
-  });
-}
-
-/**
  * Reproduce un texto en alemán con la Web Speech API y devuelve si el
- * intento tuvo éxito. En vez de fallar en silencio (el problema típico en
- * móvil: no pasa nada al tocar "Escuchar" y no hay forma de saber por qué),
- * resuelve con el motivo del fallo para poder mostrarlo en la interfaz.
+ * intento tuvo éxito.
+ *
+ * CRÍTICO para móvil: iOS Safari y Chrome/Android solo reproducen audio si
+ * speechSynthesis.speak() se llama de forma SÍNCRONA dentro del gesto de
+ * usuario (el propio onClick). Cualquier await/.then()/setTimeout antes de
+ * esa llamada hace que el navegador la descarte en silencio, sin error.
+ * Por eso aquí no se espera nada antes de hablar: todo lo síncrono ocurre
+ * ya dentro del executor de la Promise (que corre en el mismo tick), y los
+ * timers solo se usan después, para vigilar/diagnosticar el intento.
  */
 export function speakGerman(text: string): Promise<SpeakResult> {
   if (!hasSpeechSynthesis()) return Promise.resolve(NO_SUPPORT);
   const synth = window.speechSynthesis;
-  primeSynthOnce(synth);
 
-  return waitForVoices(300).then(() => {
-    refreshVoices();
-    if (!cachedVoices.length) return NO_VOICE;
+  return new Promise<SpeakResult>((resolve) => {
+    let settled = false;
+    const finish = (result: SpeakResult) => {
+      if (settled) return;
+      settled = true;
+      stopResumeWatchdog();
+      resolve(result);
+    };
 
-    return new Promise<SpeakResult>((resolve) => {
-      let settled = false;
-      const finish = (result: SpeakResult) => {
-        if (settled) return;
-        settled = true;
-        stopResumeWatchdog();
-        resolve(result);
-      };
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "de-DE";
+    utterance.rate = 0.95;
+    utterance.volume = 1;
+    utterance.pitch = 1;
+    const germanVoice = pickGermanVoice();
+    if (germanVoice) utterance.voice = germanVoice;
 
-      const runSpeak = () => {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "de-DE";
-        utterance.rate = 0.95;
-        utterance.volume = 1;
-        utterance.pitch = 1;
-        const germanVoice = pickGermanVoice();
-        if (germanVoice) utterance.voice = germanVoice;
+    utterance.onstart = () => finish({ ok: true });
+    utterance.onend = () => {
+      finish({ ok: true });
+      if (activeUtterance === utterance) activeUtterance = null;
+    };
+    utterance.onerror = () => {
+      finish(SILENT_FAIL);
+      if (activeUtterance === utterance) activeUtterance = null;
+    };
 
-        utterance.onstart = () => finish({ ok: true });
-        utterance.onend = () => {
-          finish({ ok: true });
-          if (activeUtterance === utterance) activeUtterance = null;
-        };
-        utterance.onerror = () => {
-          finish(SILENT_FAIL);
-          if (activeUtterance === utterance) activeUtterance = null;
-        };
-
-        activeUtterance = utterance;
-        try {
-          synth.speak(utterance);
-        } catch {
-          finish(SILENT_FAIL);
-          return;
-        }
-
-        // Chrome (escritorio y Android) pausa utterances de más de ~15s si
-        // la pestaña pierde foco o el dispositivo bloquea pantalla, y nunca
-        // las reanuda solo. Este watchdog las reactiva mientras hable.
-        stopResumeWatchdog();
-        resumeWatchdog = setInterval(() => {
-          if (!synth.speaking) {
-            stopResumeWatchdog();
-            return;
-          }
-          if (synth.paused) synth.resume();
-        }, 4000);
-
-        // Bug conocido de Chrome/Android: a veces speak() no arranca ni
-        // dispara error, simplemente no hace nada. Si tras 2s no ha
-        // empezado, lo tratamos como fallo silencioso para poder avisar.
-        setTimeout(() => {
-          if (!settled && !synth.speaking && !synth.pending) finish(SILENT_FAIL);
-        }, 2000);
-      };
-
-      // Cancelar y hablar en el mismo tick hace que Chrome/Android descarte
-      // la nueva frase en silencio. Solo forzamos ese pequeño respiro
-      // cuando de verdad había algo sonando.
-      if (synth.speaking || synth.pending) {
-        synth.cancel();
-        setTimeout(runSpeak, 60);
-      } else {
-        runSpeak();
+    activeUtterance = utterance;
+    try {
+      // cancel() interrumpe lo que estuviera sonando; va en la misma
+      // llamada síncrona porque cualquier retraso aquí ya rompería el
+      // gesto de usuario que exige móvil.
+      synth.cancel();
+      if (!primed) {
+        // Primer uso en esta sesión: iOS Safari suele "tragarse" la
+        // primera frase real aunque todo se llame correctamente. Encolar
+        // una utterance muda justo antes (mismo tick) despierta el motor.
+        primed = true;
+        const warmup = new SpeechSynthesisUtterance(" ");
+        warmup.volume = 0;
+        synth.speak(warmup);
       }
-    });
+      synth.speak(utterance);
+    } catch {
+      finish(SILENT_FAIL);
+      return;
+    }
+
+    // Chrome (escritorio y Android) pausa utterances de más de ~15s si la
+    // pestaña pierde foco o el dispositivo bloquea pantalla, y nunca las
+    // reanuda solo. Este watchdog las reactiva mientras dure la frase.
+    resumeWatchdog = setInterval(() => {
+      if (!synth.speaking) {
+        stopResumeWatchdog();
+        return;
+      }
+      if (synth.paused) synth.resume();
+    }, 4000);
+
+    // Algunos móviles no disparan ni onstart ni onerror si el motor
+    // rechaza la reproducción; sin este aviso el botón se quedaría
+    // "pensando" para siempre.
+    setTimeout(() => {
+      if (!settled && !synth.speaking && !synth.pending) finish(SILENT_FAIL);
+    }, 2500);
   });
 }
 

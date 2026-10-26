@@ -13,10 +13,15 @@ import {
   isStepUnlocked,
   EXAM_PASS_SCORE,
 } from "@/lib/data/path";
-import { getCardsByDeckId } from "@/lib/data/flashcards";
-import { similarityScore } from "@/lib/speech";
+import { getCardsByDeckId, seedCardsForReview } from "@/lib/data/flashcards";
+import { similarityScore, speakGerman } from "@/lib/speech";
 import { useSpeechRecognition } from "@/lib/useSpeechRecognition";
+import { buildCardExercises, fromGrammar, type Exercise } from "@/lib/exercises";
+import { addXp, XP_PER_CORRECT } from "@/lib/dailyGoal";
+import { haptic } from "@/lib/feedback";
 import SpeakButton from "@/components/SpeakButton";
+import QuizRunner, { type QuizResult } from "@/components/QuizRunner";
+import RichText from "@/components/RichText";
 import type { Card, PathStep } from "@/lib/types/database";
 
 const articleClass: Record<string, string> = {
@@ -27,6 +32,17 @@ const articleClass: Record<string, string> = {
 
 type Phase = "intro" | "vocab" | "pronunciation" | "quiz" | "done";
 
+const PHASE_LABEL: Record<Phase, string> = {
+  intro: "Teoría",
+  vocab: "Vocabulario",
+  pronunciation: "Voz",
+  quiz: "Práctica",
+  done: "",
+};
+
+const PRIMARY_BTN =
+  "w-full rounded-2xl bg-amber-500 py-3.5 text-base font-bold text-stone-950 transition active:scale-[0.98]";
+
 function StepContent() {
   const params = useParams<{ slug: string }>();
   const router = useRouter();
@@ -35,6 +51,7 @@ function StepContent() {
   const [step, setStep] = useState<PathStep | null>(null);
   const [cards, setCards] = useState<Card[]>([]);
   const [allowed, setAllowed] = useState<boolean | null>(null);
+  const [nextSlug, setNextSlug] = useState<string | null>(null);
   const [phaseIndex, setPhaseIndex] = useState(0);
 
   const [vocabIndex, setVocabIndex] = useState(0);
@@ -43,9 +60,8 @@ function StepContent() {
   const [pronIndex, setPronIndex] = useState(0);
   const { supported, listening, transcript, start, stop } = useSpeechRecognition();
 
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [quizChecked, setQuizChecked] = useState(false);
-  const [saving, setSaving] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const [result, setResult] = useState<QuizResult | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -57,11 +73,13 @@ function StepContent() {
       if (!active) return;
       setStep(currentStep);
 
+      const levelSteps = allSteps.filter((s) => s.level === currentStep.level);
+      const idx = levelSteps.findIndex((s) => s.id === currentStep.id);
+      setNextSlug(levelSteps[idx + 1]?.slug ?? null);
+
       if (user) {
         const completedIds = await getCompletedStepIds(user.id);
-        const levelSteps = allSteps.filter((s) => s.level === currentStep.level);
-        const idx = levelSteps.findIndex((s) => s.id === currentStep.id);
-        setAllowed(isStepUnlocked(levelSteps, idx, completedIds));
+        if (active) setAllowed(isStepUnlocked(levelSteps, idx, completedIds));
       }
 
       if (currentStep.deck_id) {
@@ -74,10 +92,23 @@ function StepContent() {
     };
   }, [params.slug, user]);
 
+  useEffect(() => {
+    if (allowed === false) router.replace("/learn");
+  }, [allowed, router]);
+
   const pronunciationPhrases = useMemo(
     () => cards.filter((c) => c.example_sentence).map((c) => c.example_sentence!),
     [cards]
   );
+
+  const isExam = step?.step_type === "exam";
+
+  const exercises: Exercise[] = useMemo(() => {
+    void attempt; // cambiar el intento vuelve a barajar el examen
+    if (!step) return [];
+    const own = step.content.exercises.map(fromGrammar);
+    return isExam ? own : [...own, ...buildCardExercises(cards)];
+  }, [step, cards, isExam, attempt]);
 
   const phases: Phase[] = useMemo(() => {
     if (!step) return [];
@@ -85,91 +116,85 @@ function StepContent() {
     if (step.content.sections.length > 0) list.push("intro");
     if (cards.length > 0) list.push("vocab");
     if (pronunciationPhrases.length > 0) list.push("pronunciation");
-    if (step.content.exercises.length > 0) list.push("quiz");
+    if (exercises.length > 0) list.push("quiz");
     list.push("done");
     return list;
-  }, [step, cards, pronunciationPhrases]);
+  }, [step, cards, pronunciationPhrases, exercises]);
 
   if (allowed === false) {
-    router.replace("/learn");
     return <p className="text-stone-400">Este paso todavía no está desbloqueado...</p>;
   }
 
   if (!step || phases.length === 0) {
-    return <p className="text-stone-400">Cargando paso...</p>;
+    return (
+      <div className="space-y-4" aria-busy="true">
+        <div className="h-5 w-32 animate-pulse rounded bg-stone-800" />
+        <div className="h-8 w-2/3 animate-pulse rounded bg-stone-800" />
+        <div className="h-40 animate-pulse rounded-2xl bg-stone-900" />
+      </div>
+    );
   }
 
-  const phase = phases[phaseIndex];
+  const phase = phases[Math.min(phaseIndex, phases.length - 1)];
+  const visiblePhases = phases.filter((p) => p !== "done");
+  const quizScore = result ? result.correct / Math.max(result.total, 1) : 1;
+  const examFailed = isExam && result !== null && quizScore < EXAM_PASS_SCORE;
 
   function goNext() {
+    haptic("tap");
+    window.scrollTo({ top: 0 });
     setPhaseIndex((i) => Math.min(i + 1, phases.length - 1));
   }
 
-  async function persistCompletion(score: number) {
-    if (!user || saving) return;
-    setSaving(true);
-    try {
-      await markStepComplete(user.id, step!.id, score);
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  const isExam = step.step_type === "exam";
-  const totalExercises = step.content.exercises.length;
-  const correctCount = step.content.exercises.filter(
-    (ex, i) => answers[i] === ex.answer
-  ).length;
-  const quizScore = totalExercises > 0 ? correctCount / totalExercises : 1;
-  const examPassed = !isExam || quizScore >= EXAM_PASS_SCORE;
-
   function retryExam() {
-    setAnswers({});
-    setQuizChecked(false);
+    setResult(null);
+    setAttempt((a) => a + 1);
   }
 
   return (
-    <div className="animate-fade-in mx-auto max-w-2xl space-y-6">
-      <Link href="/learn" className="text-sm text-stone-500 hover:text-stone-300">
-        ← Volver a la ruta
-      </Link>
-
-      <div>
-        <span className="text-xs uppercase tracking-wide text-amber-400">
-          {step.level} · {step.topic}
-        </span>
-        <h1 className="text-2xl font-bold">{step.title}</h1>
-      </div>
-
-      <div className="flex gap-1.5">
-        {phases
-          .filter((p) => p !== "done")
-          .map((p, i) => (
+    <div className="animate-fade-in mx-auto max-w-2xl space-y-5 pb-28">
+      <div className="flex items-center gap-3">
+        <Link
+          href="/learn"
+          aria-label="Salir de la lección"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xl text-stone-400 active:bg-stone-800"
+        >
+          ✕
+        </Link>
+        <div className="flex flex-1 gap-1.5">
+          {visiblePhases.map((p, i) => (
             <div
               key={p}
-              className={`h-1.5 flex-1 rounded-full ${
+              className={`h-2 flex-1 rounded-full transition-colors ${
                 i < phaseIndex
                   ? "bg-amber-500"
                   : i === phaseIndex
-                    ? "bg-amber-500/60"
+                    ? "bg-amber-500/50"
                     : "bg-stone-800"
               }`}
             />
           ))}
+        </div>
       </div>
 
+      {phase !== "done" && (
+        <div>
+          <span className="text-xs font-semibold uppercase tracking-wide text-amber-400">
+            {step.level} · {PHASE_LABEL[phase]}
+          </span>
+          <h1 className="text-2xl font-bold">{step.title}</h1>
+        </div>
+      )}
+
       {phase === "intro" && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {step.content.sections.map((section, i) => (
-            <div key={i} className="rounded-2xl border border-stone-800 bg-stone-900/40 p-4">
-              <h3 className="mb-1 font-semibold text-stone-100">{section.heading}</h3>
-              <p className="text-sm leading-relaxed text-stone-400">{section.body}</p>
+            <div key={i} className="rounded-2xl border border-stone-800 bg-stone-900/50 p-4">
+              <h3 className="mb-2 font-semibold text-stone-100">{section.heading}</h3>
+              <RichText text={section.body} />
             </div>
           ))}
-          <button
-            onClick={goNext}
-            className="w-full rounded-lg bg-amber-500 py-2.5 text-sm font-semibold text-stone-950 hover:bg-amber-400"
-          >
+          <button onClick={goNext} className={PRIMARY_BTN}>
             Continuar
           </button>
         </div>
@@ -180,13 +205,19 @@ function StepContent() {
           <p className="text-center text-xs text-stone-500">
             Palabra {vocabIndex + 1} / {cards.length}
           </p>
-          <button
-            onClick={() => setVocabFlipped((f) => !f)}
-            className="flex min-h-[220px] w-full flex-col items-center justify-center rounded-3xl border border-stone-800 bg-stone-900/60 p-8 text-center transition hover:border-amber-500/40"
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              haptic("tap");
+              setVocabFlipped((f) => !f);
+            }}
+            onKeyDown={(e) => e.key === "Enter" && setVocabFlipped((f) => !f)}
+            className="flex min-h-[260px] w-full cursor-pointer select-none flex-col items-center justify-center rounded-3xl border border-stone-800 bg-gradient-to-b from-stone-900 to-stone-900/40 p-8 text-center transition active:scale-[0.99]"
           >
             {!vocabFlipped ? (
               <>
-                <p className="text-3xl font-bold">
+                <p className="text-4xl font-bold">
                   {cards[vocabIndex].article && (
                     <span className={`${articleClass[cards[vocabIndex].article!]} mr-2`}>
                       {cards[vocabIndex].article}
@@ -194,44 +225,55 @@ function StepContent() {
                   )}
                   {cards[vocabIndex].word}
                 </p>
-                <p className="mt-3 text-xs uppercase tracking-wide text-stone-500">
+                <p className="mt-4 text-xs uppercase tracking-wide text-stone-500">
                   Toca para ver la traducción
                 </p>
               </>
             ) : (
               <>
-                <p className="text-2xl font-semibold text-amber-300">
+                <p className="text-3xl font-semibold text-amber-300">
                   {cards[vocabIndex].translation}
                 </p>
                 {cards[vocabIndex].example_sentence && (
-                  <div className="mt-4 space-y-1 text-sm text-stone-400">
+                  <div className="mt-5 space-y-1 text-base text-stone-300">
                     <p>{cards[vocabIndex].example_sentence}</p>
-                    <p className="italic">{cards[vocabIndex].example_translation}</p>
+                    <p className="text-sm italic text-stone-500">
+                      {cards[vocabIndex].example_translation}
+                    </p>
                   </div>
                 )}
               </>
             )}
-          </button>
-          <SpeakButton
-            getText={() => {
-              const card = cards[vocabIndex];
-              return vocabFlipped
-                ? card.example_sentence || card.word
-                : card.article
-                  ? `${card.article} ${card.word}`
-                  : card.word;
-            }}
-          />
+          </div>
+          <div className="flex justify-center">
+            <SpeakButton
+              getText={() => {
+                const card = cards[vocabIndex];
+                return vocabFlipped
+                  ? card.example_sentence || card.word
+                  : card.article
+                    ? `${card.article} ${card.word}`
+                    : card.word;
+              }}
+              className="flex items-center gap-2 rounded-full border border-sky-500/40 bg-sky-500/10 px-6 py-3 text-sm font-semibold text-sky-300 transition active:scale-95"
+            />
+          </div>
           <button
             onClick={() => {
               if (vocabIndex + 1 < cards.length) {
+                const nextCard = cards[vocabIndex + 1];
+                // Audio automático de la siguiente palabra, dentro del tap.
+                void speakGerman(
+                  nextCard.article ? `${nextCard.article} ${nextCard.word}` : nextCard.word
+                );
+                haptic("tap");
                 setVocabIndex((i) => i + 1);
                 setVocabFlipped(false);
               } else {
                 goNext();
               }
             }}
-            className="w-full rounded-lg bg-amber-500 py-2.5 text-sm font-semibold text-stone-950 hover:bg-amber-400"
+            className={PRIMARY_BTN}
           >
             {vocabIndex + 1 < cards.length ? "Siguiente palabra" : "Continuar"}
           </button>
@@ -243,27 +285,30 @@ function StepContent() {
           <p className="text-center text-xs text-stone-500">
             Frase {pronIndex + 1} / {pronunciationPhrases.length}
           </p>
-          <div className="rounded-2xl border border-stone-800 bg-stone-900/50 p-5 text-center">
-            <p className="mb-3 text-lg font-semibold">{pronunciationPhrases[pronIndex]}</p>
+          <div className="rounded-3xl border border-stone-800 bg-stone-900/50 p-6 text-center">
+            <p className="mb-5 text-xl font-semibold leading-snug">
+              {pronunciationPhrases[pronIndex]}
+            </p>
             <div className="flex items-center justify-center gap-3">
               <SpeakButton
                 getText={() => pronunciationPhrases[pronIndex]}
                 label="Nativo"
                 stopPropagation={false}
+                className="flex items-center gap-2 rounded-full border border-sky-500/40 bg-sky-500/10 px-5 py-3 text-sm font-semibold text-sky-300 transition active:scale-95"
               />
               {supported && (
                 <button
                   onClick={() => (listening ? stop() : start())}
-                  className={`rounded-full px-4 py-1.5 text-xs font-semibold ${
-                    listening ? "animate-pulse bg-stone-700" : "bg-rose-600 hover:bg-rose-500"
+                  className={`rounded-full px-5 py-3 text-sm font-semibold transition active:scale-95 ${
+                    listening ? "animate-pulse bg-stone-700" : "bg-rose-600"
                   }`}
                 >
-                  {listening ? "⏹ Parar" : "🎙️ Repetir en voz alta"}
+                  {listening ? "⏹ Parar" : "🎙️ Repetir"}
                 </button>
               )}
             </div>
             {transcript && (
-              <div className="mt-4 rounded-xl bg-stone-950 p-3 text-left">
+              <div className="mt-5 rounded-2xl bg-stone-950 p-3 text-left">
                 <p className="text-xs text-stone-500">Se reconoció:</p>
                 <p className="text-sm">{transcript}</p>
                 <p className="mt-1 text-sm font-semibold text-amber-400">
@@ -281,189 +326,158 @@ function StepContent() {
                 goNext();
               }
             }}
-            className="w-full rounded-lg bg-amber-500 py-2.5 text-sm font-semibold text-stone-950 hover:bg-amber-400"
+            className={PRIMARY_BTN}
           >
             {pronIndex + 1 < pronunciationPhrases.length ? "Siguiente frase" : "Continuar"}
+          </button>
+          <button
+            onClick={goNext}
+            className="w-full py-2 text-sm text-stone-500 active:text-stone-300"
+          >
+            Saltar práctica de voz
           </button>
         </div>
       )}
 
-      {phase === "quiz" && (
-        <div className="space-y-3">
-          <h2 className="font-semibold">
-            {isExam ? "Examen: repasa lo aprendido" : "Ejercicios"}
-          </h2>
-          {isExam && !quizChecked && (
+      {phase === "quiz" && !result && (
+        <>
+          {isExam && (
             <p className="text-xs text-stone-500">
-              Necesitas al menos el {Math.round(EXAM_PASS_SCORE * 100)}% de aciertos
-              para aprobar y desbloquear el siguiente paso. Si no llegas, podrás
-              repasar tus fallos e intentarlo de nuevo.
+              Examen: necesitas al menos el {Math.round(EXAM_PASS_SCORE * 100)}% de
+              aciertos a la primera para desbloquear el siguiente paso.
             </p>
           )}
-          {step.content.exercises.map((ex, i) => (
-            <div key={i} className="rounded-2xl border border-stone-800 bg-stone-900/40 p-4">
-              <p className="mb-2 text-sm">{ex.prompt}</p>
-              <div className="flex flex-wrap gap-2">
-                {ex.choices?.map((choice) => {
-                  const isSelected = answers[i] === choice;
-                  const isCorrect = quizChecked && choice === ex.answer;
-                  const isWrongSelected = quizChecked && isSelected && choice !== ex.answer;
-                  return (
-                    <button
-                      key={choice}
-                      disabled={quizChecked}
-                      onClick={() => setAnswers((a) => ({ ...a, [i]: choice }))}
-                      className={`rounded-lg border px-3 py-1.5 text-sm transition ${
-                        isCorrect
-                          ? "border-emerald-500 bg-emerald-950/60 text-emerald-300"
-                          : isWrongSelected
-                            ? "border-rose-500 bg-rose-950/60 text-rose-300"
-                            : isSelected
-                              ? "border-amber-500 bg-amber-950/40 text-amber-300"
-                              : "border-stone-700 text-stone-300 hover:border-stone-500"
-                      }`}
-                    >
-                      {choice}
-                    </button>
-                  );
-                })}
-              </div>
-              {quizChecked && ex.explanation && (
-                <p className="mt-2 text-xs text-stone-500">{ex.explanation}</p>
-              )}
-            </div>
-          ))}
+          <QuizRunner key={attempt} exercises={exercises} onFinish={setResult} />
+        </>
+      )}
 
-          {!quizChecked ? (
-            <button
-              onClick={() => setQuizChecked(true)}
-              className="w-full rounded-lg bg-amber-500 py-2.5 text-sm font-semibold text-stone-950 hover:bg-amber-400"
-            >
-              Corregir ejercicios
-            </button>
+      {phase === "quiz" && result && (
+        <div className="space-y-4 rounded-3xl border border-stone-800 bg-stone-900/50 p-6 text-center">
+          <p className="text-5xl">{examFailed ? "😕" : "💪"}</p>
+          <p className="text-lg font-bold">
+            {result.correct} / {result.total} a la primera
+          </p>
+          {examFailed ? (
+            <>
+              <p className="text-sm text-rose-300">
+                No aprobado: necesitas al menos {Math.round(EXAM_PASS_SCORE * 100)}%. Repasa
+                la teoría e inténtalo de nuevo.
+              </p>
+              <button onClick={retryExam} className={PRIMARY_BTN}>
+                🔁 Reintentar examen
+              </button>
+            </>
           ) : (
-            <div className="space-y-4">
-              {(() => {
-                const mistakes = step.content.exercises
-                  .map((ex, i) => ({ ex, i }))
-                  .filter(({ ex, i }) => answers[i] !== ex.answer);
-                if (mistakes.length === 0) return null;
-                return (
-                  <div className="rounded-2xl border border-rose-800/40 bg-rose-950/15 p-4">
-                    <p className="mb-2 text-sm font-semibold text-rose-300">
-                      Fallos a repasar
-                    </p>
-                    <ul className="space-y-2 text-sm">
-                      {mistakes.map(({ ex, i }) => (
-                        <li key={i} className="border-t border-rose-900/30 pt-2 first:border-0 first:pt-0">
-                          <p className="text-stone-300">{ex.prompt}</p>
-                          <p className="text-rose-400">
-                            Tu respuesta: {answers[i] ?? "—"}
-                          </p>
-                          <p className="text-emerald-400">Correcta: {ex.answer}</p>
-                          {ex.explanation && (
-                            <p className="text-xs text-stone-500">{ex.explanation}</p>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })()}
-
-              <div className="text-center">
-                <p className="text-sm text-stone-300">
-                  {correctCount} / {totalExercises} correctas
-                  {isExam && ` (${Math.round(quizScore * 100)}%)`}
-                </p>
-
-                {isExam && !examPassed ? (
-                  <>
-                    <p className="mt-1 text-sm font-semibold text-rose-400">
-                      No aprobado: necesitas al menos {Math.round(EXAM_PASS_SCORE * 100)}%.
-                    </p>
-                    <button
-                      onClick={retryExam}
-                      className="mt-3 w-full rounded-lg bg-amber-500 py-2.5 text-sm font-semibold text-stone-950 hover:bg-amber-400"
-                    >
-                      🔁 Reintentar examen
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    {isExam && (
-                      <p className="mt-1 text-sm font-semibold text-emerald-400">
-                        ✅ Examen aprobado
-                      </p>
-                    )}
-                    <button
-                      onClick={goNext}
-                      className="mt-3 w-full rounded-lg bg-amber-500 py-2.5 text-sm font-semibold text-stone-950 hover:bg-amber-400"
-                    >
-                      Continuar
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
+            <button onClick={goNext} className={PRIMARY_BTN}>
+              Continuar
+            </button>
           )}
         </div>
       )}
 
       {phase === "done" && (
-        <div className="space-y-4 rounded-2xl border border-emerald-800/40 bg-emerald-950/20 p-8 text-center">
-          <p className="text-4xl">🎉</p>
-          <h2 className="text-lg font-semibold">
-            {isExam ? "¡Examen aprobado!" : "¡Paso completado!"}
-          </h2>
-          <StepDoneAction
-            step={step}
-            score={quizScore}
-            onComplete={persistCompletion}
-            saving={saving}
-          />
-        </div>
+        <StepDone
+          step={step}
+          cards={cards}
+          result={result}
+          score={quizScore}
+          nextSlug={nextSlug}
+          isExam={!!isExam}
+        />
       )}
     </div>
   );
 }
 
-function StepDoneAction({
+function StepDone({
   step,
+  cards,
+  result,
   score,
-  onComplete,
-  saving,
+  nextSlug,
+  isExam,
 }: {
   step: PathStep;
+  cards: Card[];
+  result: QuizResult | null;
   score: number;
-  onComplete: (score: number) => void;
-  saving: boolean;
+  nextSlug: string | null;
+  isExam: boolean;
 }) {
+  const { user } = useAuth();
   const router = useRouter();
+  const [saving, setSaving] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const triggeredRef = useRef(false);
+  const xp = (result?.correct ?? 0) * XP_PER_CORRECT + 10;
 
   useEffect(() => {
-    if (triggeredRef.current) return;
+    if (!user || triggeredRef.current) return;
     triggeredRef.current = true;
-    onComplete(score);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    haptic("ok");
+    addXp(user.id, xp);
+    (async () => {
+      try {
+        await markStepComplete(user.id, step.id, score);
+        await seedCardsForReview(
+          user.id,
+          cards.map((c) => c.id)
+        ).catch(() => {});
+      } catch {
+        setError("No se pudo guardar el progreso. Revisa tu conexión e inténtalo otra vez.");
+      } finally {
+        setSaving(false);
+      }
+    })();
+  }, [user, step.id, score, xp, cards]);
 
   return (
-    <button
-      onClick={() => router.push("/learn")}
-      disabled={saving}
-      className="w-full rounded-lg bg-stone-800 py-2.5 text-sm font-semibold hover:bg-stone-700 disabled:opacity-50"
-    >
-      {saving ? "Guardando progreso..." : `Volver a la ruta de ${step.level}`}
-    </button>
+    <div className="space-y-5 rounded-3xl border border-emerald-800/40 bg-gradient-to-b from-emerald-950/40 to-emerald-950/10 p-8 text-center">
+      <p className="text-6xl">🎉</p>
+      <h2 className="text-2xl font-bold">{isExam ? "¡Examen aprobado!" : "¡Paso completado!"}</h2>
+      <div className="flex justify-center gap-3 text-sm">
+        <span className="rounded-full bg-amber-500/15 px-4 py-1.5 font-semibold text-amber-300">
+          +{xp} XP
+        </span>
+        {result && (
+          <span className="rounded-full bg-emerald-500/15 px-4 py-1.5 font-semibold text-emerald-300">
+            {Math.round(score * 100)}% a la primera
+          </span>
+        )}
+      </div>
+      {cards.length > 0 && (
+        <p className="text-sm text-stone-400">
+          {cards.length} palabras añadidas a tu repaso de mañana.
+        </p>
+      )}
+      {error && <p className="text-sm text-rose-400">{error}</p>}
+      <div className="space-y-2">
+        {nextSlug && (
+          <Link
+            href={`/learn/${nextSlug}`}
+            aria-disabled={saving}
+            className={`block ${PRIMARY_BTN} ${saving ? "pointer-events-none opacity-50" : ""}`}
+          >
+            {saving ? "Guardando..." : "Siguiente paso →"}
+          </Link>
+        )}
+        <button
+          onClick={() => router.push("/learn")}
+          disabled={saving}
+          className="w-full rounded-2xl bg-stone-800 py-3.5 text-base font-semibold transition active:scale-[0.98] disabled:opacity-50"
+        >
+          Volver a la ruta
+        </button>
+      </div>
+    </div>
   );
 }
 
 export default function LearnStepPage() {
+  const { slug } = useParams<{ slug: string }>();
   return (
     <RequireAuth>
-      <StepContent />
+      <StepContent key={slug} />
     </RequireAuth>
   );
 }

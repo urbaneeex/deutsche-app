@@ -21,7 +21,7 @@ export async function getAllDecksWithCards() {
   return { decks: decks ?? [], cards: cards ?? [] };
 }
 
-export async function getReviewQueue(userId: string, limit = 20) {
+export async function getReviewQueue(userId: string, limit = 20, newLimit = Infinity) {
   const supabase = getSupabaseBrowserClient();
   const { decks, cards } = await getAllDecksWithCards();
   const { data: states, error: statesError } = await supabase
@@ -44,7 +44,7 @@ export async function getReviewQueue(userId: string, limit = 20) {
   const due = withState.filter((c) => c.isDue && !c.isNew);
   const fresh = withState.filter((c) => c.isNew);
 
-  return [...due, ...fresh].slice(0, limit);
+  return [...due, ...fresh.slice(0, newLimit)].slice(0, limit);
 }
 
 /** Todas las tarjetas de un mazo (categoría) concreto, en orden, para
@@ -115,9 +115,36 @@ export async function getCardsByDeckId(deckId: string) {
   return data ?? [];
 }
 
+/** Cuenta tarjetas pendientes sin descargar el contenido: solo un conteo. */
 export async function countDue(userId: string) {
-  const queue = await getReviewQueue(userId, 500);
-  return queue.length;
+  const supabase = getSupabaseBrowserClient();
+  const { count, error } = await supabase
+    .from("srs_state")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .lte("due_at", new Date().toISOString());
+  if (error) throw error;
+  return count ?? 0;
+}
+
+/** Tras ver las palabras de una lección, entran en el repaso espaciado
+ * para que mañana toque recordarlas (sin pisar las que ya tenían estado). */
+export async function seedCardsForReview(userId: string, cardIds: string[]) {
+  if (cardIds.length === 0) return;
+  const supabase = getSupabaseBrowserClient();
+  const due = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+  const { error } = await supabase.from("srs_state").upsert(
+    cardIds.map((card_id) => ({
+      user_id: userId,
+      card_id,
+      ease_factor: 2.5,
+      interval_days: 1,
+      repetitions: 0,
+      due_at: due,
+    })),
+    { onConflict: "user_id,card_id", ignoreDuplicates: true }
+  );
+  if (error) throw error;
 }
 
 export async function submitReview(

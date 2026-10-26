@@ -1,4 +1,4 @@
-const CACHE_NAME = "deutschlernen-v2";
+const CACHE_NAME = "deutschlernen-v3";
 const APP_SHELL = ["/manifest.json", "/icon.svg", "/icon-maskable.svg"];
 
 self.addEventListener("install", (event) => {
@@ -36,6 +36,21 @@ self.addEventListener("fetch", (event) => {
           return response;
         })
         .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // JS/CSS/fuentes de Next con hash en el nombre: inmutables, así que
+  // cache-first. La app abre al instante y funciona sin red.
+  if (new URL(request.url).pathname.startsWith("/_next/static/")) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(async (cache) => {
+        const cached = await cache.match(request);
+        if (cached) return cached;
+        const response = await fetch(request);
+        if (response.ok) cache.put(request, response.clone());
+        return response;
+      })
     );
     return;
   }

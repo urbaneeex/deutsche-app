@@ -25,6 +25,9 @@ export default function NavBar() {
 
   if (pathname === "/login") return null;
 
+  // Modo concentración: en una lección o repaso la barra inferior estorba.
+  const focus = pathname.startsWith("/learn/") || pathname === "/practice";
+
   return (
     <>
       <header className="hidden border-b border-stone-800 bg-stone-950/80 backdrop-blur sm:block">
@@ -59,18 +62,23 @@ export default function NavBar() {
         </div>
       </header>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 flex justify-between border-t border-stone-800 bg-stone-950/95 px-1 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden">
+      <nav
+        className={`fixed inset-x-0 bottom-0 z-40 justify-between border-t border-stone-800 bg-stone-950/95 px-1 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden ${focus ? "hidden" : "flex"}`}
+      >
         {links.map(({ href, label, Icon }) => (
           <Link
             key={href}
             href={href}
-            className={`flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] ${
+            className={`relative flex flex-1 flex-col items-center gap-0.5 py-2.5 text-[11px] font-medium transition active:scale-95 ${
               pathname.startsWith(href)
                 ? "text-amber-300"
                 : "text-stone-400"
             }`}
           >
-            <Icon size={20} />
+            {pathname.startsWith(href) && (
+              <span className="absolute top-0 h-0.5 w-8 rounded-full bg-amber-400" />
+            )}
+            <Icon size={22} />
             {label}
           </Link>
         ))}

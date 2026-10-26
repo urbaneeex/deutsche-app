@@ -1,5 +1,10 @@
+/** Fecha local (YYYY-MM-DD). Con toISOString() el "día" cambiaba a las
+ * 1-2 de la madrugada en España y rompía la racha. */
 export function todayStr(date: Date = new Date()): string {
-  return date.toISOString().slice(0, 10);
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }
 
 export function daysBetween(a: string, b: string): number {

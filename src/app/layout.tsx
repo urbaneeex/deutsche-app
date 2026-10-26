@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Deutschlernen — Aprende alemán de verdad",
   description:
-    "Flashcards con SRS, gramática, alemán coloquial de WhatsApp, situaciones reales y práctica de pronunciación.",
+    "Aprende alemán A1-A2: lecciones cortas, repaso espaciado diario, audio nativo, situaciones reales y pronunciación.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -30,6 +30,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
   themeColor: "#0c0a09",
 };
 
@@ -43,10 +44,10 @@ export default function RootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-stone-950 text-stone-100">
+      <body className="flex min-h-dvh flex-col bg-stone-950 text-stone-100">
         <AuthProvider>
           <NavBar />
-          <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-6 pb-24 sm:pb-10">
+          <main className="mx-auto w-full max-w-4xl flex-1 px-4 pt-[max(1.25rem,env(safe-area-inset-top))] pb-28 sm:pb-10 sm:pt-6">
             {children}
           </main>
           <ServiceWorkerRegister />

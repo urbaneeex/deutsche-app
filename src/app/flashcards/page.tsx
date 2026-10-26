@@ -645,7 +645,7 @@ function FlashcardsContent() {
             onClick={handlePrev}
             disabled={index === 0}
             aria-label="Tarjeta anterior"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-stone-700 text-lg text-stone-300 transition hover:border-amber-500 hover:text-amber-300 disabled:opacity-30 disabled:hover:border-stone-700 disabled:hover:text-stone-300"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-stone-700 text-lg active:scale-90 text-stone-300 transition hover:border-amber-500 hover:text-amber-300 disabled:opacity-30 disabled:hover:border-stone-700 disabled:hover:text-stone-300"
           >
             ‹
           </button>
@@ -715,7 +715,7 @@ function FlashcardsContent() {
           <button
             onClick={handleNext}
             aria-label="Tarjeta siguiente"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-stone-700 text-lg text-stone-300 transition hover:border-amber-500 hover:text-amber-300"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-stone-700 text-lg active:scale-90 text-stone-300 transition hover:border-amber-500 hover:text-amber-300"
           >
             ›
           </button>
@@ -727,7 +727,7 @@ function FlashcardsContent() {
               <button
                 key={btn.quality}
                 onClick={() => handleReview(btn.quality)}
-                className={`rounded-lg py-2.5 text-xs font-medium transition ${
+                className={`rounded-2xl py-3.5 text-sm font-semibold transition active:scale-95 ${
                   btn.quality === 0
                     ? "bg-rose-950/60 text-rose-300 hover:bg-rose-900"
                     : btn.quality === 3

@@ -7,7 +7,20 @@ export const LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1"] as const;
  * siguiente paso de la ruta. */
 export const EXAM_PASS_SCORE = 0.7;
 
-export async function getPathSteps(): Promise<PathStep[]> {
+let stepsCache: PathStep[] | null = null;
+let stepsInFlight: Promise<PathStep[]> | null = null;
+
+/** Los pasos casi nunca cambian: se cachean en memoria (navegar entre
+ * Aprender y una lección ya no repite la consulta). */
+export function getPathSteps(): Promise<PathStep[]> {
+  if (stepsCache) return Promise.resolve(stepsCache);
+  stepsInFlight ??= fetchPathSteps()
+    .then((steps) => (stepsCache = steps))
+    .finally(() => (stepsInFlight = null));
+  return stepsInFlight;
+}
+
+async function fetchPathSteps(): Promise<PathStep[]> {
   const supabase = getSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("path_steps")
@@ -19,6 +32,8 @@ export async function getPathSteps(): Promise<PathStep[]> {
 }
 
 export async function getPathStepBySlug(slug: string): Promise<PathStep> {
+  const cached = stepsCache?.find((s) => s.slug === slug);
+  if (cached) return cached;
   const supabase = getSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("path_steps")

@@ -18,9 +18,12 @@ type Item = { id: number; ex: Exercise; retry: boolean };
 export default function QuizRunner({
   exercises,
   onFinish,
+  onAnswer,
 }: {
   exercises: Exercise[];
   onFinish: (result: QuizResult) => void;
+  /** Se llama en cada respuesta; `firstTry` es false en las repeticiones. */
+  onAnswer?: (ex: Exercise, ok: boolean, firstTry: boolean) => void;
 }) {
   const [queue, setQueue] = useState<Item[]>(() =>
     exercises.map((ex, id) => ({ id, ex, retry: false }))
@@ -30,6 +33,7 @@ export default function QuizRunner({
   const [typed, setTyped] = useState("");
   const [checked, setChecked] = useState<boolean | null>(null);
   const [answered, setAnswered] = useState(0);
+  const [combo, setCombo] = useState(0);
   const firstTry = useRef<Map<number, boolean>>(new Map());
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -49,6 +53,8 @@ export default function QuizRunner({
     const ok =
       ex.kind === "type" ? isTypedCorrect(typed, ex.answer) : selected === ex.answer;
     setChecked(ok);
+    setCombo((c) => (ok ? c + 1 : 0));
+    onAnswer?.(ex, ok, !item.retry);
     haptic(ok ? "ok" : "bad");
     if (!item.retry) {
       firstTry.current.set(item.id, ok);
@@ -184,7 +190,11 @@ export default function QuizRunner({
           {checked !== null && (
             <div className="animate-fade-in text-sm">
               <p className={`font-bold ${checked ? "text-emerald-300" : "text-rose-300"}`}>
-                {checked ? "¡Correcto! 🎉" : "Casi…"}
+                {checked
+                  ? combo >= 3
+                    ? `🔥 ¡${combo} seguidas!`
+                    : "¡Correcto! 🎉"
+                  : "Casi… ¡a la siguiente la clavas!"}
               </p>
               {!checked && (
                 <p className="text-rose-200">

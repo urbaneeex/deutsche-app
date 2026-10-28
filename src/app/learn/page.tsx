@@ -172,54 +172,51 @@ function LearnContent() {
             />
           </div>
 
-          <div className="relative space-y-3">
+          <div className="relative flex flex-col items-center gap-5 py-4">
             {current.steps.map((step, i) => {
               const isDone = completed.has(step.id);
               const unlocked = isStepUnlocked(current.steps, i, completed);
               const isNext = unlocked && !isDone;
-
               const isExam = step.step_type === "exam";
+              // Zigzag suave estilo camino de Duolingo.
+              const offset = [0, 44, 66, 44, 0, -44, -66, -44][i % 8];
 
-              const node = (
+              const circle = (
                 <div
-                  className={`flex items-center gap-3 rounded-2xl border p-4 transition active:scale-[0.99] ${
-                    isDone
-                      ? "border-emerald-800/50 bg-emerald-950/20"
-                      : isNext
-                        ? isExam
-                          ? "border-violet-500/60 bg-violet-950/20 hover:bg-violet-950/30"
-                          : "border-amber-500/60 bg-amber-950/20 hover:bg-amber-950/30"
-                        : "border-stone-800 bg-stone-900/30 opacity-60"
-                  }`}
+                  className="flex w-44 flex-col items-center gap-1.5 text-center"
+                  style={{ transform: `translateX(${offset}px)` }}
                 >
                   <div
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
+                    className={`relative flex h-[72px] w-[72px] items-center justify-center rounded-full border-b-[6px] text-2xl font-extrabold transition active:translate-y-1 active:border-b-2 ${
                       isDone
-                        ? "bg-emerald-500 text-emerald-950"
+                        ? "border-emerald-700 bg-emerald-500 text-emerald-950"
                         : isNext
-                          ? isExam
-                            ? "bg-violet-500 text-violet-950"
-                            : "bg-amber-500 text-amber-950"
-                          : "bg-stone-800 text-stone-500"
+                          ? `${isExam ? "border-violet-700 bg-violet-500 text-violet-950" : "border-amber-700 bg-amber-400 text-amber-950"} pulse-ring`
+                          : "border-stone-800 bg-stone-700 text-stone-500"
                     }`}
                   >
-                    {isDone ? "✓" : unlocked ? (isExam ? "📝" : i + 1) : "🔒"}
+                    {isDone ? "✓" : unlocked ? (isExam ? "📝" : "★") : "🔒"}
+                    {isNext && (
+                      <span className="absolute -top-3 rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-bold uppercase text-stone-900 shadow">
+                        {isExam ? "Examen" : "Empieza"}
+                      </span>
+                    )}
                   </div>
-                  <div>
-                    <p className="text-xs text-stone-500">
-                      {isExam ? "Examen" : step.topic}
-                    </p>
-                    <p className="font-semibold">{step.title}</p>
-                  </div>
+                  <p className={`text-sm font-semibold leading-tight ${unlocked ? "text-stone-100" : "text-stone-500"}`}>
+                    {step.title}
+                  </p>
+                  <p className="text-[11px] text-stone-500">
+                    {isExam ? "~3 min · 10 preguntas" : `${step.topic} · ~4 min`}
+                  </p>
                 </div>
               );
 
               return unlocked ? (
-                <Link key={step.id} href={`/learn/${step.slug}`}>
-                  {node}
+                <Link key={step.id} href={`/learn/${step.slug}`} className="block">
+                  {circle}
                 </Link>
               ) : (
-                <div key={step.id}>{node}</div>
+                <div key={step.id}>{circle}</div>
               );
             })}
           </div>

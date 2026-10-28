@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
+import { splitSentences } from "@/components/GermanText";
+import { SlideSheet } from "@/components/SlideDeck";
+import { LESSON_TO_STEP, SLIDES, type Slide } from "@/data/visual/slides";
 import RequireAuth from "@/components/RequireAuth";
 import { getGrammarLessonBySlug, markLessonComplete } from "@/lib/data/lessons";
 import type { GrammarLesson } from "@/lib/types/database";
@@ -22,6 +25,14 @@ function LessonContent() {
   }, [params.slug]);
 
   if (!lesson) return <p className="text-stone-400">Cargando lección...</p>;
+
+  const slides: Slide[] =
+    SLIDES[LESSON_TO_STEP[lesson.slug]] ??
+    lesson.content.sections.map((sec) => ({
+      t: "points" as const,
+      title: sec.heading,
+      items: splitSentences(sec.body),
+    }));
 
   const correctCount = lesson.content.exercises.filter(
     (ex, i) => answers[i] === ex.answer
@@ -50,20 +61,13 @@ function LessonContent() {
         <h1 className="text-2xl font-bold">{lesson.title}</h1>
       </div>
 
-      <div className="space-y-4">
-        {lesson.content.sections.map((section, i) => (
-          <div key={i} className="rounded-2xl border border-stone-800 bg-stone-900/40 p-4">
-            <h3 className="mb-1 font-semibold text-stone-100">{section.heading}</h3>
-            <p className="text-sm leading-relaxed text-stone-400">{section.body}</p>
-          </div>
-        ))}
-      </div>
+      <SlideSheet slides={slides} />
 
       <div className="space-y-3">
-        <h2 className="font-semibold">Ejercicios</h2>
+        <h2 className="text-2xl font-extrabold">Practica</h2>
         {lesson.content.exercises.map((ex, i) => (
           <div key={i} className="rounded-2xl border border-stone-800 bg-stone-900/40 p-4">
-            <p className="mb-2 text-sm">{ex.prompt}</p>
+            <p className="mb-3 text-lg font-semibold leading-snug">{ex.prompt}</p>
             <div className="flex flex-wrap gap-2">
               {ex.choices?.map((choice) => {
                 const isSelected = answers[i] === choice;
@@ -74,7 +78,7 @@ function LessonContent() {
                     key={choice}
                     disabled={checked}
                     onClick={() => setAnswers((a) => ({ ...a, [i]: choice }))}
-                    className={`rounded-lg border px-3 py-1.5 text-sm transition ${
+                    className={`min-h-11 rounded-xl border-2 px-4 py-2 text-base transition ${
                       isCorrect
                         ? "border-emerald-500 bg-emerald-950/60 text-emerald-300"
                         : isWrongSelected
@@ -90,7 +94,7 @@ function LessonContent() {
               })}
             </div>
             {checked && ex.explanation && (
-              <p className="mt-2 text-xs text-stone-500">{ex.explanation}</p>
+              <p className="mt-3 text-sm text-stone-400">{ex.explanation}</p>
             )}
           </div>
         ))}

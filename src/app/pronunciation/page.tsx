@@ -288,7 +288,7 @@ function PronunciationContent() {
                     score > 0.75 ? "text-emerald-400" : "text-amber-400"
                   }`}
                 >
-                  Coincidencia: {Math.round(score * 100)}%
+                  {score > 0.75 ? "✅ ¡Bien dicho!" : "🔁 Casi: escucha al nativo y repite"}
                 </p>
               )}
             </div>

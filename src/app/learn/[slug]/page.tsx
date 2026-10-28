@@ -21,7 +21,10 @@ import { addXp, XP_PER_CORRECT } from "@/lib/dailyGoal";
 import { haptic } from "@/lib/feedback";
 import SpeakButton from "@/components/SpeakButton";
 import QuizRunner, { type QuizResult } from "@/components/QuizRunner";
-import RichText from "@/components/RichText";
+import Confetti from "@/components/Confetti";
+import { splitSentences } from "@/components/GermanText";
+import SlideDeck from "@/components/SlideDeck";
+import { SLIDES, type Slide } from "@/data/visual/slides";
 import type { Card, PathStep } from "@/lib/types/database";
 
 const articleClass: Record<string, string> = {
@@ -107,8 +110,20 @@ function StepContent() {
     void attempt; // cambiar el intento vuelve a barajar el examen
     if (!step) return [];
     const own = step.content.exercises.map(fromGrammar);
-    return isExam ? own : [...own, ...buildCardExercises(cards)];
+    return isExam ? own : [...own, ...buildCardExercises(cards, 6)];
   }, [step, cards, isExam, attempt]);
+
+  const slides: Slide[] = useMemo(() => {
+    if (!step) return [];
+    if (SLIDES[step.slug]) return SLIDES[step.slug];
+    // Sin tarjetas hechas a mano: una por sección, partida en frases cortas
+    // y con las parejas «a -> b» convertidas en fichas.
+    return step.content.sections.map((sec) => ({
+      t: "points" as const,
+      title: sec.heading,
+      items: splitSentences(sec.body),
+    }));
+  }, [step]);
 
   const phases: Phase[] = useMemo(() => {
     if (!step) return [];
@@ -177,7 +192,7 @@ function StepContent() {
         </div>
       </div>
 
-      {phase !== "done" && (
+      {phase !== "done" && phase !== "intro" && (
         <div>
           <span className="text-xs font-semibold uppercase tracking-wide text-amber-400">
             {step.level} · {PHASE_LABEL[phase]}
@@ -186,19 +201,7 @@ function StepContent() {
         </div>
       )}
 
-      {phase === "intro" && (
-        <div className="space-y-3">
-          {step.content.sections.map((section, i) => (
-            <div key={i} className="rounded-2xl border border-stone-800 bg-stone-900/50 p-4">
-              <h3 className="mb-2 font-semibold text-stone-100">{section.heading}</h3>
-              <RichText text={section.body} />
-            </div>
-          ))}
-          <button onClick={goNext} className={PRIMARY_BTN}>
-            Continuar
-          </button>
-        </div>
-      )}
+      {phase === "intro" && <SlideDeck slides={slides} onDone={goNext} />}
 
       {phase === "vocab" && (
         <div className="space-y-4">
@@ -312,8 +315,9 @@ function StepContent() {
                 <p className="text-xs text-stone-500">Se reconoció:</p>
                 <p className="text-sm">{transcript}</p>
                 <p className="mt-1 text-sm font-semibold text-amber-400">
-                  Coincidencia:{" "}
-                  {Math.round(similarityScore(pronunciationPhrases[pronIndex], transcript) * 100)}%
+                  {similarityScore(pronunciationPhrases[pronIndex], transcript) > 0.75
+                    ? "✅ ¡Bien dicho!"
+                    : "🔁 Casi: escucha al nativo y repite"}
                 </p>
               </div>
             )}
@@ -433,7 +437,8 @@ function StepDone({
 
   return (
     <div className="space-y-5 rounded-3xl border border-emerald-800/40 bg-gradient-to-b from-emerald-950/40 to-emerald-950/10 p-8 text-center">
-      <p className="text-6xl">🎉</p>
+      <Confetti />
+      <p className="animate-pop text-7xl">🎉</p>
       <h2 className="text-2xl font-bold">{isExam ? "¡Examen aprobado!" : "¡Paso completado!"}</h2>
       <div className="flex justify-center gap-3 text-sm">
         <span className="rounded-full bg-amber-500/15 px-4 py-1.5 font-semibold text-amber-300">

@@ -21,7 +21,7 @@ export async function getAllDecksWithCards() {
   return { decks: decks ?? [], cards: cards ?? [] };
 }
 
-export async function getReviewQueue(userId: string, limit = 20, newLimit = Infinity) {
+export async function getReviewSession(userId: string, limit = 20, newLimit = Infinity) {
   const supabase = getSupabaseBrowserClient();
   const { decks, cards } = await getAllDecksWithCards();
   const { data: states, error: statesError } = await supabase
@@ -44,7 +44,10 @@ export async function getReviewQueue(userId: string, limit = 20, newLimit = Infi
   const due = withState.filter((c) => c.isDue && !c.isNew);
   const fresh = withState.filter((c) => c.isNew);
 
-  return [...due, ...fresh.slice(0, newLimit)].slice(0, limit);
+  return {
+    queue: [...due, ...fresh.slice(0, newLimit)].slice(0, limit),
+    pool: cards,
+  };
 }
 
 /** Todas las tarjetas de un mazo (categoría) concreto, en orden, para

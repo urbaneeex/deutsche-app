@@ -6,11 +6,10 @@ import RequireAuth from "@/components/RequireAuth";
 import {
   getDeckStats,
   getDeckQueue,
-  submitReview,
+  seedCardsForReview,
   type CardWithState,
   type DeckStats,
 } from "@/lib/data/flashcards";
-import { REVIEW_BUTTONS } from "@/lib/srs";
 import SpeakButton from "@/components/SpeakButton";
 import type { Deck } from "@/lib/types/database";
 import {
@@ -610,9 +609,11 @@ function FlashcardsContent() {
   const card = queue[index];
   const total = queue.length;
 
-  async function handleReview(quality: 0 | 3 | 4 | 5) {
+  // Aquí solo se mira y se escucha; la nota la pone el repaso del día
+  // (que te pregunta y se autocorrige). Ver la tarjeta la mete en el repaso.
+  async function handleContinue() {
     if (!user) return;
-    await submitReview(user.id, card, quality);
+    seedCardsForReview(user.id, [card.id]).catch(() => {});
     setSessionDone((n) => n + 1);
     setFlipped(false);
     setIndex((i) => i + 1);
@@ -722,25 +723,12 @@ function FlashcardsContent() {
         </div>
 
         {flipped && (
-          <div className="mt-6 grid grid-cols-4 gap-2">
-            {REVIEW_BUTTONS.map((btn) => (
-              <button
-                key={btn.quality}
-                onClick={() => handleReview(btn.quality)}
-                className={`rounded-2xl py-3.5 text-sm font-semibold transition active:scale-95 ${
-                  btn.quality === 0
-                    ? "bg-rose-950/60 text-rose-300 hover:bg-rose-900"
-                    : btn.quality === 3
-                      ? "bg-stone-800 text-stone-300 hover:bg-stone-700"
-                      : btn.quality === 4
-                        ? "bg-emerald-950/60 text-emerald-300 hover:bg-emerald-900"
-                        : "bg-amber-950/60 text-amber-300 hover:bg-amber-900"
-                }`}
-              >
-                {btn.label}
-              </button>
-            ))}
-          </div>
+          <button
+            onClick={handleContinue}
+            className="mt-6 w-full rounded-2xl bg-amber-500 py-3.5 text-base font-bold text-stone-950 transition active:scale-[0.98]"
+          >
+            Siguiente tarjeta →
+          </button>
         )}
       </div>
 

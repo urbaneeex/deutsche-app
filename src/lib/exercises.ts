@@ -12,6 +12,8 @@ export type Exercise =
       audio?: string;
       /** Si es de escucha, el prompt no debe revelar la palabra. */
       listen?: boolean;
+      /** Id de la tarjeta que se está practicando (repaso automático). */
+      ref?: string;
     }
   | {
       kind: "type";
@@ -19,6 +21,7 @@ export type Exercise =
       answer: string;
       explanation?: string;
       audio?: string;
+      ref?: string;
     };
 
 export function fromGrammar(ex: GrammarExercise): Exercise {
@@ -62,59 +65,62 @@ export function isTypedCorrect(input: string, answer: string) {
   return given === stripped;
 }
 
-/** Ejercicios generados a partir de las tarjetas del paso: escuchar,
- * traducir, artículo y escribir. Así se practica de verdad el vocabulario
- * en vez de solo "verlo". */
+/** Un ejercicio para una tarjeta. `slot` rota el tipo (0 escuchar, 1
+ * traducir, 2 artículo, 3 escribir); `pool` aporta las opciones falsas. */
+export function exerciseForCard(card: Card, pool: Card[], slot: number): Exercise {
+  const full = withArticle(card);
+  const translations = pool.map((c) => c.translation);
+  const words = pool.map(withArticle);
+  const enough = translations.filter((t) => t !== card.translation).length >= 3;
+  const kind = enough ? slot % 4 : 3;
+
+  if (kind === 0) {
+    return {
+      kind: "choice",
+      listen: true,
+      audio: full,
+      ref: card.id,
+      prompt: "¿Qué significa lo que oyes?",
+      answer: card.translation,
+      choices: shuffle([card.translation, ...distractors(translations, card.translation, 3)]),
+      explanation: `${full} = ${card.translation}`,
+    };
+  }
+  if (kind === 1) {
+    return {
+      kind: "choice",
+      ref: card.id,
+      prompt: `¿Cómo se dice «${card.translation}» en alemán?`,
+      answer: full,
+      choices: shuffle([full, ...distractors(words, full, 3)]),
+      explanation: card.example_sentence
+        ? `${card.example_sentence} — ${card.example_translation ?? ""}`
+        : undefined,
+    };
+  }
+  if (kind === 2 && card.article) {
+    return {
+      kind: "choice",
+      ref: card.id,
+      prompt: `___ ${card.word} (${card.translation})`,
+      answer: card.article,
+      choices: ["der", "die", "das"],
+      explanation: `${full} — aprende siempre el artículo con la palabra.`,
+    };
+  }
+  return {
+    kind: "type",
+    ref: card.id,
+    prompt: `Escribe en alemán: «${card.translation}»`,
+    answer: full,
+    explanation: card.example_sentence ?? undefined,
+  };
+}
+
+/** Ejercicios generados a partir de las tarjetas del paso. */
 export function buildCardExercises(cards: Card[], max = 8): Exercise[] {
   if (cards.length < 2) return [];
-  const sample = shuffle(cards).slice(0, max);
-  const exercises: Exercise[] = [];
-  const translations = cards.map((c) => c.translation);
-  const words = cards.map(withArticle);
-
-  sample.forEach((card, i) => {
-    const full = withArticle(card);
-    const slot = i % 4;
-
-    if (slot === 0) {
-      exercises.push({
-        kind: "choice",
-        listen: true,
-        audio: full,
-        prompt: "¿Qué significa lo que oyes?",
-        answer: card.translation,
-        choices: shuffle([card.translation, ...distractors(translations, card.translation, 3)]),
-        explanation: `${full} = ${card.translation}`,
-      });
-    } else if (slot === 1) {
-      exercises.push({
-        kind: "choice",
-        prompt: `¿Cómo se dice «${card.translation}» en alemán?`,
-        answer: full,
-        audio: full,
-        choices: shuffle([full, ...distractors(words, full, 3)]),
-        explanation: card.example_sentence
-          ? `${card.example_sentence} — ${card.example_translation ?? ""}`
-          : undefined,
-      });
-    } else if (slot === 2 && card.article) {
-      exercises.push({
-        kind: "choice",
-        prompt: `___ ${card.word} (${card.translation})`,
-        answer: card.article,
-        choices: ["der", "die", "das"],
-        explanation: `${full} — aprende siempre el artículo con la palabra.`,
-      });
-    } else {
-      exercises.push({
-        kind: "type",
-        prompt: `Escribe en alemán: «${card.translation}»`,
-        answer: full,
-        audio: full,
-        explanation: card.example_sentence ?? undefined,
-      });
-    }
-  });
-
-  return exercises;
+  return shuffle(cards)
+    .slice(0, max)
+    .map((card, i) => exerciseForCard(card, cards, i));
 }

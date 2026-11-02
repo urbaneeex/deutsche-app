@@ -9,7 +9,7 @@ import { SlideSheet } from "@/components/SlideDeck";
 import { LESSON_TO_STEP, SLIDES, type Slide } from "@/data/visual/slides";
 import RequireAuth from "@/components/RequireAuth";
 import { getGrammarLessonBySlug, markLessonComplete } from "@/lib/data/lessons";
-import type { GrammarLesson } from "@/lib/types/database";
+import type { GrammarExercise, GrammarLesson } from "@/lib/types/database";
 
 function LessonContent() {
   const params = useParams<{ slug: string }>();
@@ -34,14 +34,24 @@ function LessonContent() {
       items: splitSentences(sec.body),
     }));
 
-  const correctCount = lesson.content.exercises.filter(
+  // Las preguntas rápidas de las tarjetas también cuentan como práctica.
+  const exercises: GrammarExercise[] = [
+    ...lesson.content.exercises,
+    ...slides.flatMap((sl) =>
+      sl.t === "quick"
+        ? [{ prompt: sl.q, choices: sl.choices, answer: sl.a, explanation: sl.why }]
+        : []
+    ),
+  ];
+
+  const correctCount = exercises.filter(
     (ex, i) => answers[i] === ex.answer
   ).length;
 
   async function handleFinish() {
     setChecked(true);
     if (user && !saved) {
-      const total = lesson!.content.exercises.length;
+      const total = exercises.length;
       const score = total > 0 ? correctCount / total : 1;
       await markLessonComplete(user.id, lesson!.id, score);
       setSaved(true);
@@ -65,7 +75,7 @@ function LessonContent() {
 
       <div className="space-y-3">
         <h2 className="text-2xl font-extrabold">Practica</h2>
-        {lesson.content.exercises.map((ex, i) => (
+        {exercises.map((ex, i) => (
           <div key={i} className="rounded-2xl border border-stone-800 bg-stone-900/40 p-4">
             <p className="mb-3 text-lg font-semibold leading-snug">{ex.prompt}</p>
             <div className="flex flex-wrap gap-2">
@@ -110,7 +120,7 @@ function LessonContent() {
       ) : (
         <div className="space-y-3 text-center">
           <p className="text-sm text-stone-300">
-            {correctCount} / {lesson.content.exercises.length} correctas
+            {correctCount} / {exercises.length} correctas
           </p>
           <button
             onClick={() => router.push("/lessons")}

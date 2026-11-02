@@ -20,6 +20,15 @@ function Kicker({ label, tone }: { label: string; tone: string }) {
   );
 }
 
+function gridHead(col: string) {
+  const c = col.toLowerCase();
+  if (c === "der") return "bg-sky-500/20 text-sky-300";
+  if (c === "die") return "bg-rose-500/20 text-rose-300";
+  if (c === "das") return "bg-emerald-500/20 text-emerald-300";
+  if (c === "plural") return "bg-amber-500/20 text-amber-300";
+  return "bg-stone-800 text-stone-400";
+}
+
 function ExampleRow({ ex }: { ex: Ex }) {
   return (
     <button
@@ -191,6 +200,41 @@ function SlideBody({
         </div>
       );
     }
+    case "grid":
+      return (
+        <div className="space-y-4">
+          <Kicker label="Tabla" tone="bg-amber-500/15 text-amber-300" />
+          <h2 className="text-3xl font-extrabold leading-tight tracking-tight">{slide.title}</h2>
+          {slide.note && <p className="text-sm text-stone-500">{slide.note}</p>}
+          <div className="overflow-hidden rounded-2xl border border-stone-800">
+            <div
+              className="grid"
+              style={{ gridTemplateColumns: `repeat(${slide.cols.length}, minmax(0, 1fr))` }}
+            >
+              {slide.cols.map((c, k) => (
+                <div
+                  key={k}
+                  className={`px-1.5 py-2.5 text-center text-[11px] font-extrabold uppercase tracking-wide ${gridHead(c)}`}
+                >
+                  {c}
+                </div>
+              ))}
+              {slide.rows.flatMap((row, r) =>
+                row.map((cell, c) => (
+                  <div
+                    key={`${r}-${c}`}
+                    className={`border-t border-stone-800 px-1.5 py-3 text-center text-[15px] font-semibold ${
+                      c === 0 ? "bg-stone-800/70 text-left text-xs text-stone-300" : "bg-stone-900/60"
+                    }`}
+                  >
+                    <GermanText text={cell} />
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      );
     case "versus":
       return (
         <div className="space-y-4">
